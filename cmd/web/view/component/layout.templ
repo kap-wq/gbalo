@@ -1,0 +1,127 @@
+package component
+
+import "github.com/socle-lab/render"
+
+import
+(
+"app/cmd/web/view/component/layout"
+)
+
+templ Base(title string, td *render.TemplateData) {
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8" />
+    <title>PISCILL-POS | {title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- PNG icon -->
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon" />
+    <!-- ================== BEGIN core-css ================== -->
+    <link href="/public/css/vendor.min.css" rel="stylesheet" />
+    <link href="/public/css/app.min.css" rel="stylesheet" />
+    <link href="/public/css/custom.css" rel="stylesheet" />
+    <!-- ================== END core-css ================== -->
+    <link href="/public/plugins/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
+    <meta name="csrf-token" content={td.CSRFToken}>
+    <!-- ================== BEGIN page-css ================== -->
+    <link href="/public/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet">
+    <!-- ================== END page-css ================== -->
+
+
+    <script src="/public/js/htmx.min.js"></script>
+    <script defer src="/public/js/alpine.min.js"></script>
+</head>
+
+<body>
+    <!-- BEGIN #app -->
+    <div id="app" class="app app-content-full-width app-sidebar-collapsed">
+
+        @layout.Header(td)
+        @layout.Slidebar(td)
+
+        <!-- BEGIN #content -->
+        <div id="content" class="app-content">
+            { children... }
+        </div>
+        <!-- END #content -->
+
+        @layout.FullscreenModal()
+        @layout.ThemePanel(false)
+        <!-- BEGIN btn-scroll-top -->
+        // <a href="#" data-toggle="scroll-to-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+        <!-- END btn-scroll-top -->
+    </div>
+    <!-- END #app -->
+    <!-- ================== BEGIN core-js ================== -->
+    <script src="/public/js/vendor.min.js"></script>
+    <script src="/public/js/app.min.js"></script>
+    <!-- ================== END core-js ================== -->
+    <!-- ================== BEGIN page-js ================== -->
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <!-- ================== END page-js ================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentPath = window.location.pathname;
+            const menuItems = document.querySelectorAll(".menu-item");
+
+            menuItems.forEach(function (item) {
+                const link = item.querySelector("a");
+                if (link && link.getAttribute("href") === currentPath) {
+                    item.classList.add("active");
+                } else {
+                    item.classList.remove("active");
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+    </script>
+
+
+    <script src="/public/plugins/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/public/plugins/blueimp-tmpl/js/tmpl.min.js"></script>
+    <script src="/public/plugins/blueimp-load-image/js/load-image.all.min.js"></script>
+    <script src="/public/plugins/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
+    <script src="/public/plugins/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-audio.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-video.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
+    <!-- ================== BEGIN page-js ================== -->
+    <script src="/public/plugins/jvectormap-next/jquery-jvectormap.min.js"></script>
+    <script src="/public/plugins/jvectormap-content/world-mill.js"></script>
+    <script src="/public/plugins/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/public/js/demo/dashboard.demo.js"></script>
+    <!-- ================== END page-js ================== -->
+    <!-- html -->
+    <!-- <input id="fileupload" type="file" name="files[]" multiple> -->
+
+    <!-- script -->
+    <script>
+        $("#fileupload").fileupload({
+            url: "--- your url here ---",
+            dataType: "json",
+            sequentialUploads: true,
+            done: function (e, data) {
+                //console.log(data.result);
+            },
+        });
+        $("#fileupload").on("fileuploadadd", function (e, data) {
+            data.submit();
+        });
+    </script>
+</body>
+
+</html>
+}

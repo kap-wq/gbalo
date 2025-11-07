@@ -1,0 +1,53 @@
+package layout
+
+templ ThemePanel(disable bool) {
+<!-- BEGIN theme-panel -->
+<div class="app-theme-panel" style={ templ.KV("display: none", disable), }>
+    <div class="app-theme-panel-container">
+        <a href="javascript:;" data-toggle="theme-panel-expand" class="app-theme-toggle-btn"><i
+                class="bi bi-sliders"></i></a>
+        <div class="app-theme-panel-content">
+            <div class="small fw-bold text-inverse mb-1">Préférence</div>
+            <div class="card mb-3">
+                <!-- BEGIN card-body -->
+                <div class="card-body p-2">
+                    <div class="row gx-2">
+                        <div class="col-6">
+                            <a href="javascript:;" data-toggle="theme-mode-selector" data-theme-mode="dark"
+                                class="app-theme-mode-link active">
+                                <div class="img">
+                                    <img src="/public/img/mode/dark.jpg" class="object-fit-cover" height="76" width="76"
+                                        alt="Dark Mode" />
+                                </div>
+                                <div class="text">Sombre</div>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="javascript:;" data-toggle="theme-mode-selector" data-theme-mode="light"
+                                class="app-theme-mode-link">
+                                <div class="img">
+                                    <img src="/public/img/mode/light.jpg" class="object-fit-cover" height="76"
+                                        width="76" alt="Light Mode" />
+                                </div>
+                                <div class="text">Claire</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END card-body -->
+
+                <!-- BEGIN card-arrow -->
+                <div class="card-arrow">
+                    <div class="card-arrow-top-left"></div>
+                    <div class="card-arrow-top-right"></div>
+                    <div class="card-arrow-bottom-left"></div>
+                    <div class="card-arrow-bottom-right"></div>
+                </div>
+                <!-- END card-arrow -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- END theme-panel -->
+}
