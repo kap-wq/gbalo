@@ -58,6 +58,8 @@ func (app *application) routes() http.Handler {
 	})
 
 	r.Route("/personnes", func(r chi.Router) {
+	// navigation routes
+	r.Route("/navigation", func(r chi.Router) {
 		// add routes here
 		// r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		// 	w.Header().Set("Content-Type", "application/json")
@@ -73,6 +75,31 @@ func (app *application) routes() http.Handler {
 	})
 
 	
+		r.Get("/dashboard", app.Handler.DashboardHandler)
+		r.Get("/analytics", app.Handler.AnalyticsHandler)
+
+	})
+
+	// Hotel routes
+	r.Route("/hotel", func(r chi.Router) {
+		// add routes here
+		// r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		// 	w.Header().Set("Content-Type", "application/json")
+		// 	w.WriteHeader(http.StatusOK)
+		// 	w.Write([]byte(`{"data":"API 📺 Up and Running"}`))
+		// })
+		r.Get("/rooms", app.Handler.RoomsHandler)
+		r.Get("/reservation", app.Handler.ReservationHandler)
+
+	})
+
+	// SignIn routes
+	r.Route("/connexion", func(r chi.Router) {
+		// add routes here
+		r.Get("/signin", app.Handler.SigninHandler)
+		r.Post("/signin", app.Handler.SigninPostHandler)
+	})
+
 	// static routes
 	fileServer := http.FileServer(http.Dir("./public"))
 	r.Handle("/public/*", http.StripPrefix("/public", fileServer))
