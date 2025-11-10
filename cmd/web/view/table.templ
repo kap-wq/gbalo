@@ -1,0 +1,196 @@
+package view
+
+import "app/cmd/web/view/component"
+import "app/cmd/web/viewmodel"
+import "github.com/socle-lab/render"
+
+
+templ Table(td *render.TemplateData, i interface{}) {
+{{vm := i.(*viewmodel.IndexViewModel)}}
+@component.Base(vm.Title, td) {
+
+    <div class="d-flex align-items-center mb-3">
+				<div>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">PAGES</a></li>
+						<li class="breadcrumb-item active">TABLE</li>
+					</ul>
+					<h1 class="page-header mb-0">Gestion Table</h1>
+				</div>
+				
+				<div class="ms-auto">
+					<a href="#" class="btn btn-outline-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add table</a>
+				</div>
+			</div>
+      <!-- BEGIN #content -->
+    
+        <!-- BEGIN pos -->
+        <div class="pos pos-vertical card" id="pos">
+            <!-- BEGIN pos-container -->
+            <div class="pos-container card-body">
+                <!-- BEGIN pos-header -->
+                <div class="pos-header">
+                    <div class="logo">
+                        <a href="#">
+                            <div class="logo-img"><i class="bi bi-egg-fried" style="font-size: 1.5rem;"></i></div>
+                            <div class="logo-text">Piscill POS</div>
+                        </a>
+                    </div>
+                    <div class="time" id="time">00:00</div>
+                    <div class="nav">
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-arrow-repeat nav-icon"></i>
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="bi bi-calendar-date nav-icon"></i>
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-graph-up nav-icon"></i>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- END pos-header -->
+            
+                <!-- BEGIN pos-content -->
+                <div class="pos-content">
+                    <div class="pos-content-container h-100 p-4" data-scrollbar="true" data-height="100%">
+                        <div class="d-md-flex align-items-center mb-4">
+                            <div class="flex-1">
+                                <div class="fs-24px mb-1">Tables disponibles (5/10)</div>
+                                <div class="mb-2 mb-md-0 d-flex">
+                                    <div class="d-flex align-items-center me-3">
+                                        <i class="fa fa-circle fa-fw text-white text-opacity-25 fs-9px me-1"></i> Libre
+                                    </div>
+                                    <div class="d-flex align-items-center me-3">
+                                        <i class="fa fa-circle fa-fw text-warning fs-9px me-1"></i> Réservée
+                                    </div>
+                                    <div class="d-flex align-items-center me-3">
+                                        <i class="fa fa-circle fa-fw text-success fs-9px me-1"></i> Occupée
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+										<div class="input-group date me-2" data-render="datepicker" data-date-format="dd-mm-yyyy">
+											<input type="text" class="form-control fw-bold" placeholder="Aujourd'hui">
+											<span class="input-group-text input-group-addon bg-none">
+												<i class="bi bi-calendar-date-fill fa-lg"></i>
+											</span>
+										</div>
+                                    
+										
+
+									</div>
+                                
+                        </div>
+                        <div class="row gx-4">
+                            <!-- Table 1 -->
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalPosBooking" class="pos-table-booking card">
+                                    <div class="card-body p-1">
+                                        <div class="pos-table-booking-container">
+                                            <div class="pos-table-booking-header">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-1">
+                                                        <div class="title">TABLE</div>
+                                                        <div class="no">01</div>
+                                                        <div class="desc">max 4 pax</div>
+                                                    </div>
+                                                    <div class="pe-1 text-success">
+                                                        <i class="bi bi-check2-circle fa-3x"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pos-table-booking-body">
+                                                <div class="booking">
+                                                    <div class="time">12:00</div>
+                                                    <div class="info">Libre</div>
+                                                    <div class="status"></div>
+                                                </div>
+                                                <div class="booking highlight">
+                                                    <div class="time">13:00</div>
+                                                    <div class="info">Libre</div>
+                                                    <div class="status"></div>
+                                                </div>
+                                                <div class="booking">
+                                                    <div class="time">14:00</div>
+                                                    <div class="info">Libre</div>
+                                                    <div class="status"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-arrow">
+                                        <div class="card-arrow-top-left"></div>
+                                        <div class="card-arrow-top-right"></div>
+                                        <div class="card-arrow-bottom-left"></div>
+                                        <div class="card-arrow-bottom-right"></div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Table 2 -->
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalPosBooking" class="pos-table-booking card">
+                                    <div class="card-body p-1">
+                                        <div class="pos-table-booking-container">
+                                            <div class="pos-table-booking-header">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-1">
+                                                        <div class="title">TABLE</div>
+                                                        <div class="no">02</div>
+                                                        <div class="desc">max 6 pax</div>
+                                                    </div>
+                                                    <div class="text-warning">
+                                                        <i class="bi bi-hourglass-split fa-3x"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pos-table-booking-body">
+                                                <div class="booking">
+                                                    <div class="time">12:00</div>
+                                                    <div class="info">Réservée</div>
+                                                    <div class="status"></div>
+                                                </div>
+                                                <div class="booking highlight">
+                                                    <div class="time">13:00</div>
+                                                    <div class="info">Réservée</div>
+                                                    <div class="status"></div>
+                                                </div>
+                                                <div class="booking">
+                                                    <div class="time">14:00</div>
+                                                    <div class="info">Libre</div>
+                                                    <div class="status"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-arrow">
+                                        <div class="card-arrow-top-left"></div>
+                                        <div class="card-arrow-top-right"></div>
+                                        <div class="card-arrow-bottom-left"></div>
+                                        <div class="card-arrow-bottom-right"></div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Add more tables as needed -->
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- END pos-content -->
+            </div>
+            <!-- END pos-container -->
+        </div>
+        <!-- END pos -->
+    
+    <!-- END #content -->
+}
+}

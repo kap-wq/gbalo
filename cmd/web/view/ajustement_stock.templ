@@ -1,0 +1,150 @@
+package view
+
+import "app/cmd/web/view/component"
+import "app/cmd/web/viewmodel"
+import "github.com/socle-lab/render"
+
+
+templ Ajustement_stock(td *render.TemplateData, i interface{}) {
+{{vm := i.(*viewmodel.IndexViewModel)}}
+@component.Base(vm.Title, td) {
+
+<div class="d-flex align-items-center mb-3">
+        <div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
+                <li class="breadcrumb-item active">AJUSTEMENT STOCK</li>
+            </ol>
+            <h1 class="page-header mb-0">Gestion ajustement_stock</h1>
+        </div>
+        
+</div>
+
+<div class="data-management" data-id="table">
+  <div class="table-responsive">
+    <div class="card flex-1 m-0 d-flex flex-column overflow-hidden rounded-0">
+      <div class="card-header fw-bold small d-flex">
+        <span class="flex-grow-1">Stock Adjustment</span>
+        <a href="#" data-toggle="card-expand" class="text-white text-opacity-50 text-decoration-none"><i class="fa fa-fw fa-expand"></i> EXPAND</a>
+      </div>
+      <div class="card-body p-0 flex-1 overflow-hidden">
+        <div class="file-manager h-100" id="fileManager">
+          <!-- Barre de menu supérieure avec filtres alignés horizontalement -->
+          <div class="file-manager-toolbar d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center">
+              <button class="btn btn-outline-secondary me-2"><i class="fa fa-file"></i> File</button>
+              <button class="btn btn-outline-secondary me-2"><i class="fa fa-print"></i> Print</button>
+              <button class="btn btn-outline-secondary me-2"><i class="fa fa-plus"></i> Add</button>
+              <button class="btn btn-outline-secondary me-2"><i class="fa fa-trash"></i> Remove</button>
+              <button class="btn btn-outline-secondary me-2"><i class="fa fa-refresh"></i> Refresh</button>
+            </div>
+            <div class="d-flex align-items-center">
+              <input type="text" class="form-control me-2" placeholder="Search" style="width: 150px;">
+              <select class="form-select me-2" name="ref" style="width: 100px;">
+                <option value="ALL">Ref: ALL</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              <select class="form-select me-2" name="operator" style="width: 150px;">
+                <option value="">Operator:</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              <div class="d-flex align-items-center">
+                <input type="date" class="form-control me-2" value="2018-01-01" style="width: 130px;">
+                <span class="me-2">To</span>
+                <input type="date" class="form-control" value="2018-12-31" style="width: 130px;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Contenu principal avec deux sections et séparateur potentiel -->
+          <div class="file-manager-container d-flex" style="height: calc(100% - 60px);">
+            <!-- Section gauche : Liste des ajustements -->
+            <div class="file-manager-sidebar w-50 me-2" style="overflow-y: auto;">
+              <div class="card-header fw-bold small">ADJUSTMENT LIST</div>
+              <table class="table table-striped table-borderless table-sm m-0 text-nowrap small">
+                <thead>
+                  <tr class="border-bottom">
+                    <th class="px-10px">REF</th>
+                    <th class="px-10px">ADJUSTMENT DATE</th>
+                    <th class="px-10px">NB ITEM</th>
+                    <th class="px-10px">Operator</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>AJ001</td><td>24/02/2019 00:00</td><td>0</td><td>mawuko</td></tr>
+                  <tr><td>AJ002</td><td>24/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
+                  <tr><td>AJ003</td><td>24/02/2019 00:00</td><td>3</td><td>mawuko</td></tr>
+                  <tr><td>AJ005</td><td>25/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
+                  <tr><td>AJ006</td><td>25/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
+                  <tr><td>AJ007</td><td>26/02/2019 00:00</td><td>3</td><td>mawuko</td></tr>
+                  <tr><td>AJ008</td><td>01/03/2019 00:00</td><td>7</td><td>mawuko</td></tr>
+                  <tr><td>AJ009</td><td>01/03/2019 00:00</td><td>2</td><td>mawuko</td></tr>
+                  <tr><td>AJ010</td><td>01/03/2019 00:00</td><td>2</td><td>mawuko</td></tr>
+                  <tr><td>AJ011</td><td>01/03/2019 00:00</td><td>0</td><td>mawuko</td></tr>
+                  <tr><td>AJ012</td><td>05/08/2019 00:00</td><td>0</td><td>mawuko</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Séparateur potentiel (à implémenter avec JavaScript) -->
+            <div class="splitter" style="width: 5px; cursor: col-resize; background: #ccc; min-height: 100%;"></div>
+
+            <!-- Section droite : Détails de l'élément sélectionné -->
+            <div class="file-manager-content w-50 d-flex flex-column">
+              <div class="card-header fw-bold small mb-2">Selected Item</div>
+              <div class="d-flex flex-column h-100">
+                <div class="mb-2">
+                  <input type="text" class="form-control mb-2" placeholder="Search" style="width: 100%;">
+                  <input type="text" class="form-control mb-2" placeholder="Store Code" style="width: 100%;">
+                  <input type="text" class="form-control mb-2" placeholder="Part Name" style="width: 100%;">
+                  <input type="text" class="form-control mb-2" placeholder="Part Ref" style="width: 100%;">
+                </div>
+                <div class="flex-grow-1 overflow-auto" style="max-height: 100%;">
+                  <table class="table table-striped table-borderless table-sm m-0 text-nowrap small">
+                    <thead>
+                      <tr class="border-bottom">
+                        <th class="px-10px">REF</th>
+                        <th class="px-10px">ADJUSTMENT DATE</th>
+                        <th class="px-10px">PRODUCT CODE</th>
+                        <th class="px-10px">ITEM</th>
+                        <th class="px-10px">UNIT COST</th>
+                        <th class="px-10px">IN / OUT</th>
+                        <th class="px-10px">UNIT QUANTITY</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>AJ001</td><td>24/02/2019 00:00</td><td>PC001</td><td>Item1</td><td>10.00</td><td>In</td><td>5</td></tr>
+                      <tr><td>AJ002</td><td>24/02/2019 00:00</td><td>PC002</td><td>Item2</td><td>15.00</td><td>Out</td><td>3</td></tr>
+                      <tr><td>AJ001</td><td>24/02/2019 00:00</td><td>PC001</td><td>Item1</td><td>10.00</td><td>In</td><td>5</td></tr>
+                      <tr><td>AJ002</td><td>24/02/2019 00:00</td><td>PC002</td><td>Item2</td><td>15.00</td><td>Out</td><td>3</td></tr>
+                      <tr><td>AJ001</td><td>24/02/2019 00:00</td><td>PC001</td><td>Item1</td><td>10.00</td><td>In</td><td>5</td></tr>
+                      <tr><td>AJ002</td><td>24/02/2019 00:00</td><td>PC002</td><td>Item2</td><td>15.00</td><td>Out</td><td>3</td></tr>
+                      <tr><td>AJ001</td><td>24/02/2019 00:00</td><td>PC001</td><td>Item1</td><td>10.00</td><td>In</td><td>5</td></tr>
+                      <tr><td>AJ002</td><td>24/02/2019 00:00</td><td>PC002</td><td>Item2</td><td>15.00</td><td>Out</td><td>3</td></tr>
+
+                      <!-- Ajouter plus de lignes pour tester la scrollbar verticale -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons en bas -->
+          <div class="file-manager-footer d-flex justify-content-end mt-2">
+            <button class="btn btn-outline-secondary me-2"><i class="fa fa-trash"></i> Remove</button>
+            <button class="btn btn-outline-secondary">Close</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        <div class="card-arrow-top-left"></div>
+        <div class="card-arrow-top-right"></div>
+        <div class="card-arrow-bottom-left"></div>
+        <div class="card-arrow-bottom-right"></div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+}

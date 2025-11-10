@@ -1,0 +1,98 @@
+package view
+
+import "app/cmd/web/view/component"
+import "app/cmd/web/viewmodel"
+import "github.com/socle-lab/render"
+
+
+templ Valeur_stock(td *render.TemplateData, i interface{}) {
+{{vm := i.(*viewmodel.IndexViewModel)}}
+@component.Base(vm.Title, td) {
+
+
+<div class="d-flex align-items-center mb-3">
+        <div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
+                <li class="breadcrumb-item active">VALEUR STOCK</li>
+            </ol>
+            <h1 class="page-header mb-0">Gestion Valeur stock</h1>
+        </div>
+       <div class="ms-auto">
+					<a href="#" class="btn btn-outline-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add valeur Stock</a>
+				</div>
+</div>
+<div class="data-management" data-id="table">
+  <div class="table-responsive">
+    <div class="card flex-1 m-0 d-flex flex-column overflow-hidden rounded-0">
+      <div class="card-header fw-bold small d-flex">
+        <span class="flex-grow-1">STOCK VALUE FRM</span>
+        <a href="#" data-toggle="card-expand" class="text-white text-opacity-50 text-decoration-none"><i class="fa fa-fw fa-expand"></i> EXPAND</a>
+      </div>
+      <div class="card-body p-0 flex-1 overflow-hidden">
+        <div class="file-manager h-100" id="fileManager">
+          <div class="file-manager-toolbar d-flex align-items-center">
+            <select class="form-select me-2" name="group" style="width: 150px;">
+              <option value="All">Group: All</option>
+              <!-- Ajouter d'autres options si nécessaire -->
+            </select>
+            <select class="form-select me-2" name="category" style="width: 150px;">
+              <option value="All">Category: All</option>
+              <!-- Ajouter d'autres options si nécessaire -->
+            </select>
+            <select class="form-select me-2" name="store" style="width: 150px;">
+              <option value="All">Store: All</option>
+              <!-- Ajouter d'autres options si nécessaire -->
+            </select>
+            <div class="input-group me-2" style="width: 200px;">
+              <label class="input-group-text">Date</label>
+              <select class="form-select" name="date-range" style="width: 100px;">
+                <option value="month">Month</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+            </div>
+            <div class="d-flex align-items-center me-2">
+              <input type="date" class="form-control me-2" value="2018-01-01" style="width: 150px;">
+              <span class="me-2">to</span>
+              <input type="date" class="form-control" value="2018-12-31" style="width: 150px;">
+            </div>
+          </div>
+          <div class="file-manager-container">
+            <div class="file-manager-content d-flex flex-column">
+              <div class="flex-1 overflow-hidden">
+                <div data-scrollbar="true" data-skip-mobile="true" data-height="100%" class="p-0">
+                  <table class="table table-striped table-borderless table-sm m-0 text-nowrap small">
+                    <thead>
+                      <tr class="border-bottom">
+                        <th class="px-10px">Code</th>
+                        <th class="px-10px">Item Name</th>
+                        <th class="px-10px">Theoretical Qty</th>
+                        <th class="px-10px">Unit</th>
+                        <th class="px-10px">Unit Price</th>
+                        <th class="px-10px">Total Price</th>
+                        <th class="px-10px">Group</th>
+                        <th class="px-10px">Category</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Données peuvent être ajoutées ici -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        <div class="card-arrow-top-left"></div>
+        <div class="card-arrow-top-right"></div>
+        <div class="card-arrow-bottom-left"></div>
+        <div class="card-arrow-bottom-right"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}
+}
