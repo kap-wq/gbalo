@@ -12,7 +12,6 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/jmoiron/sqlx v1.4.0
-	github.com/socle-framework/render v0.0.1
 	github.com/socle-lab/core v0.0.0-20251106161308-531c76d0b519
 	github.com/socle-lab/render v0.0.0-20251105165546-489ae04308a8
 	github.com/upper/db/v4 v4.10.0
@@ -163,3 +162,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/cockroachdb/cockroach-go => github.com/cockroachdb/cockroach-go/v2 v2.4.2
