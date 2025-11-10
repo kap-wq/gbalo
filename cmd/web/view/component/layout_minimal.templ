@@ -1,0 +1,65 @@
+package component
+
+import "github.com/socle-lab/render"
+
+templ BaseMinimal(title string, td *render.TemplateData) {
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8" />
+    <title>PISCILL-POS | {title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- PNG icon -->
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon" />
+    <!-- ================== BEGIN core-css ================== -->
+    <link href="/public/css/vendor.min.css" rel="stylesheet" />
+    <link href="/public/css/app.min.css" rel="stylesheet" />
+    <link href="/public/css/custom.css" rel="stylesheet" />
+    <!-- ================== END core-css ================== -->
+    <link href="/public/plugins/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
+    <meta name="csrf-token" content={td.CSRFToken}>
+    <!-- ================== BEGIN page-css ================== -->
+    <link href="/public/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet">
+    <!-- ================== END page-css ================== -->
+
+    <script src="/public/js/htmx.min.js"></script>
+    <script defer src="/public/js/alpine.min.js"></script>
+</head>
+
+<body>
+    { children... }
+    <!-- ================== BEGIN core-js ================== -->
+    <script src="/public/js/vendor.min.js"></script>
+    <script src="/public/js/app.min.js"></script>
+    <!-- ================== END core-js ================== -->
+    <!-- ================== BEGIN page-js ================== -->
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <!-- ================== END page-js ================== -->
+
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+    </script>
+
+    <script src="/public/plugins/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/public/plugins/blueimp-tmpl/js/tmpl.min.js"></script>
+    <script src="/public/plugins/blueimp-load-image/js/load-image.all.min.js"></script>
+    <script src="/public/plugins/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
+    <script src="/public/plugins/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-audio.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-video.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
+    <script src="/public/plugins/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
+</body>
+
+</html>
+}
+

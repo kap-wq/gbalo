@@ -58,6 +58,13 @@ func (app *application) routes() http.Handler {
 
 	})
 
+	// SignIn routes
+	r.Route("/connexion", func(r chi.Router) {
+		// add routes here
+		r.Get("/signin", app.Handler.SigninHandler)
+		r.Post("/signin", app.Handler.SigninPostHandler)
+	})
+
 	// static routes
 	fileServer := http.FileServer(http.Dir("./public"))
 	r.Handle("/public/*", http.StripPrefix("/public", fileServer))
