@@ -51,6 +51,7 @@ templ Base(title string, td *render.TemplateData) {
 
         @layout.FullscreenModal()
         @layout.ThemePanel(false)
+        
         <!-- BEGIN btn-scroll-top -->
         // <a href="#" data-toggle="scroll-to-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
         <!-- END btn-scroll-top -->
@@ -121,6 +122,8 @@ templ Base(title string, td *render.TemplateData) {
             data.submit();
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
 </body>
 
 </html>

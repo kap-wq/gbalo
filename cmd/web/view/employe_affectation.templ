@@ -1,0 +1,290 @@
+package view
+
+import "app/cmd/web/view/component"
+import "app/cmd/web/viewmodel"
+import "github.com/socle-lab/render"
+
+
+templ Employe_affectation(td *render.TemplateData, i interface{}) {
+{{vm := i.(*viewmodel.IndexViewModel)}}
+@component.Base(vm.Title, td) {
+
+<!-- BEGIN #content -->
+	
+		<div class="d-flex align-items-center mb-3">
+			<div>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
+					<li class="breadcrumb-item active">AFFECTATION EMPLOYE </li>
+				</ol>
+				<h1 class="page-header mb-0">Gestion Affectation Employés</h1>
+			</div>
+			
+		</div>
+
+		<div class="row gx-4">
+			<!-- COLONNE GAUCHE : Liste des employés -->
+			<div class="col-lg-8">
+				<div class="card mb-4">
+					<div class="card-header d-flex align-items-center bg-inverse bg-opacity-10 fw-400">
+						Employés
+					</div>
+					<div class="card-body">
+						<div class="row g-3 employee-list">
+							<!-- Employé 1 -->
+							<div class="col-md-6 employee-card" data-employee-id="1">
+								<div class="d-flex align-items-center p-3 border rounded shadow-sm selectable-employee">
+									<img src="/public/img/user1.jpeg" alt="User 1" class="rounded-circle" width="60" height="60">
+									<div class="ms-3">
+										<h5 class="mb-1">John Smith</h5>
+										<p class="mb-0 text-muted">Administrator</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Employé 2 -->
+							<div class="col-md-6 employee-card" data-employee-id="2">
+								<div class="d-flex align-items-center p-3 border rounded shadow-sm selectable-employee">
+									<img src="/public/img/user2.jpeg" alt="User 2" class="rounded-circle" width="60" height="60">
+									<div class="ms-3">
+										<h5 class="mb-1">Jane Doe</h5>
+										<p class="mb-0 text-muted">Sales Manager</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Employé 3 -->
+							<div class="col-md-6 employee-card" data-employee-id="3">
+								<div class="d-flex align-items-center p-3 border rounded shadow-sm selectable-employee">
+									<img src="/public/img/user3.jpeg" alt="User 3" class="rounded-circle" width="60" height="60">
+									<div class="ms-3">
+										<h5 class="mb-1">Babana Justin</h5>
+										<p class="mb-0 text-muted">Serveur</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+
+				 <div class="card-body">
+					<table class="table table-bordered align-middle text-center">
+					<thead class="table-light">
+						<tr>
+						<th scope="col" class="text-start">Heures</th>
+						<th scope="col">Lundi</th>
+						<th scope="col">Mardi</th>
+						<th scope="col">Mercredi</th>
+						<th scope="col">Jeudi</th>
+						<th scope="col">Vendredi</th>
+						<th scope="col">Samedi</th>
+						<th scope="col">Dimanche</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<th class="text-start">08:00 - 09:00</th>
+						<td>Jean - Alice - Marc</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Paul - Clara</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Sarah - Hugo - Léa - Tom</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">09:00 - 10:00</th>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Lucie - Kevin</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>John Smith - Louis - Zoé</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Marie - Jules - Hugo - Jade</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">10:00 - 11:00</th>
+						<td>Tom - Hugo</td>
+						<td>Élise - Max - Clara</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Julien - Sarah - Léa</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">11:00 - 12:00</th>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Anna - Theo - Mila</td>
+						<td>Paul - John Smith - Noa</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Lucie - Jade - Eva</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">13:00 - 14:00</th>
+						<td>Tom - Alice</td>
+						<td>Louis - Léa - Zoé</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Sarah - Hugo</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">14:00 - 15:00</th>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>John Smith - Theo</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Paul - Clara - Max - Zoé</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">15:00 - 16:00</th>
+						<td>Julien - Mila</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Hugo - Léa - Tom - Zoé</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Eva - Louis</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+						<tr>
+						<th class="text-start">16:00 - 17:00</th>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>Sarah - Hugo</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td>John Smith - Paul - Jade</td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						<td><i class="bi bi-plus-circle text-muted"></i></td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+				<!-- Employés programmés aujourd'hui -->
+				<div class="card mb-4">
+					<div class="card-header d-flex align-items-center bg-inverse bg-opacity-10 fw-400">
+						<div class="flex-1">Employés programmés aujourd'hui</div>
+					</div>
+					<div class="card-body">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<div>
+									<i class="bi bi-person-circle me-2 text-theme"></i>
+									<strong>Emma</strong> — 08:00 à 16:00
+								</div>
+								<button class="btn btn-outline-success btn-sm">
+									<i class="bi bi-check-circle me-1"></i> Présent
+								</button>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<div>
+									<i class="bi bi-person-circle me-2 text-theme"></i>
+									<strong>Lucas</strong> — 09:00 à 17:30
+								</div>
+								<button class="btn btn-outline-success btn-sm">
+									<i class="bi bi-check-circle me-1"></i> Présent
+								</button>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<div>
+									<i class="bi bi-person-circle me-2 text-theme"></i>
+									<strong>Sophia</strong> — 10:00 à 18:00
+								</div>
+								<button class="btn btn-outline-success btn-sm">
+									<i class="bi bi-check-circle me-1"></i> Présent
+								</button>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<div>
+									<i class="bi bi-person-circle me-2 text-theme"></i>
+									<strong>Arthur</strong> — 12:00 à 20:00
+								</div>
+								<button class="btn btn-outline-success btn-sm">
+									<i class="bi bi-check-circle me-1"></i> Présent
+								</button>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<div>
+									<i class="bi bi-person-circle me-2 text-theme"></i>
+									<strong>Sarah</strong> — 14:00 à 22:00
+								</div>
+								<button class="btn btn-outline-success btn-sm">
+									<i class="bi bi-check-circle me-1"></i> Présent
+								</button>
+							</li>
+						</ul>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- COLONNE DROITE : Détails -->
+			<div class="col-lg-4">
+				<!-- ID Card -->
+				<div class="card mb-4" id="employee-id-card" style="">
+					<div class="card-header d-flex align-items-center fw-400 bg-inverse bg-opacity-10">
+						<div class="flex-1">Employee ID Card</div>
+						<div><a href="#" class="text-decoration-none">Edit</a></div>
+					</div>
+					<div class="card-body d-flex align-items-center">
+						<div class="me-3">
+							<img id="card-photo" src="" alt="Profile Photo" class="rounded-circle" width="100" height="100">
+						</div>
+						<div class="flex-1">
+							<h5 id="card-name" class="mb-1"></h5>
+							<p id="card-age" class="mb-1 text-muted"></p>
+							<p id="card-role" class="mb-1 text-muted"></p>
+							<p id="card-contract-start" class="mb-1 text-muted"></p>
+							<p id="card-contract-end" class="mb-1 text-muted"></p>
+						</div>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+
+				<!-- Présences de la semaine -->
+				<div class="card mb-4" id="employee-schedule" style="">
+					<div class="card-header d-flex align-items-center fw-400 bg-inverse bg-opacity-10">
+						<div class="flex-1">Présences de la semaine</div>
+					</div>
+					<div class="card-body">
+						<div class="d-flex align-items-center mb-3">
+							<i class="bi bi-person-circle fs-3 me-2 text-theme"></i>
+							<h5 id="schedule-name" class="mb-0 fw-bold"></h5>
+						</div>
+						<ul class="list-group" id="schedule-list">
+							<!-- Rempli dynamiquement -->
+						</ul>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+    
+}
+}

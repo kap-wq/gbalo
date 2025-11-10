@@ -1,0 +1,102 @@
+package view
+
+import "app/cmd/web/view/component"
+import "app/cmd/web/viewmodel"
+import "github.com/socle-lab/render"
+
+
+templ Inventaire(td *render.TemplateData, i interface{}) {
+{{vm := i.(*viewmodel.IndexViewModel)}}
+@component.Base(vm.Title, td) {
+
+<div class="d-flex align-items-center mb-3">
+        <div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
+                <li class="breadcrumb-item active"> INVENTAIRE</li>
+            </ol>
+            <h1 class="page-header mb-0">Gestion Inventaire</h1>
+        </div>
+        
+</div>
+<div class="data-management" data-id="table">
+  <div class="table-responsive">
+    <div class="card flex-1 m-0 d-flex flex-column overflow-hidden rounded-0">
+      <div class="card-header fw-bold small d-flex">
+        <span class="flex-grow-1">Inventaire</span>
+        <a href="#" data-toggle="card-expand" class="text-white text-opacity-50 text-decoration-none"><i class="fa fa-fw fa-expand"></i> EXPAND</a>
+      </div>
+      <div class="card-body p-0 flex-1 overflow-hidden">
+        <div class="file-manager h-100" id="fileManager">
+          <!-- Barre de menu supérieure avec filtres alignés horizontalement -->
+          <div class="file-manager-toolbar d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center">
+              <button class="btn btn-sm btn-secondary me-2"><i class="fa fa-file"></i> Fichier</button>
+              <button class="btn btn-sm btn-secondary me-2"><i class="fa fa-times"></i> Annuler Finventaire</button>
+              <button class="btn btn-sm btn-success me-2"><i class="fa fa-plus"></i> Create Inventory</button>
+            </div>
+            <div class="d-flex align-items-center">
+              <input type="text" class="form-control me-2" placeholder="Code" style="width: 100px;">
+              <select class="form-select me-2" name="group" style="width: 100px;">
+                <option value="Tout">Groupe: Tout</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              <select class="form-select me-2" name="category" style="width: 100px;">
+                <option value="Tout">Catégorie: Tout</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              <select class="form-select me-2" name="store" style="width: 100px;">
+                <option value="Tout">Store: Tout</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              <select class="form-select me-2" name="store" style="width: 100px;">
+                <option value="Tout">Article: Tout</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              
+              <select class="form-select me-2" name="year" style="width: 100px;">
+                <option value="2021">Année: 2021</option>
+                <!-- Ajouter d'autres options si nécessaire -->
+              </select>
+              <button class="btn btn-sm btn-success"><i class="fa fa-save"></i> Sauvegarder</button>
+            </div>
+          </div>
+
+          <!-- Section principale avec tableau -->
+          <div class="file-manager-container d-flex flex-column" style="height: calc(100% - 60px);">
+            <div class="flex-grow-1 overflow-hidden">
+              <table class="table table-striped table-borderless table-sm m-0 text-nowrap small">
+                <thead>
+                  <tr class="border-bottom">
+                    <th class="px-10px">Code</th>
+                    <th class="px-10px">Nom de l'article</th>
+                    <th class="px-10px">Qté théorique</th>
+                    <th class="px-10px">Unités</th>
+                    <th class="px-10px">Qté physique</th>
+                    <th class="px-10px">Unité</th>
+                    <th class="px-10px">Qté différentielle</th>
+                    <th class="px-10px">Groupe</th>
+                    <th class="px-10px">Catégorie</th>
+                    <th class="px-10px">Coût différentiel</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Données peuvent être ajoutées ici -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-arrow">
+        <div class="card-arrow-top-left"></div>
+        <div class="card-arrow-top-right"></div>
+        <div class="card-arrow-bottom-left"></div>
+        <div class="card-arrow-bottom-right"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}
+}

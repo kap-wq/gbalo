@@ -25,25 +25,25 @@ templ Slidebar(td *render.TemplateData) {
 
             <div class="menu-header">Restaurant</div>
             <div class="menu-item">
-                <a href="menu.html" class="menu-link">
+                <a href="/restaurant/menu" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-egg-fried"></i></span>
                     <span class="menu-text">Menu</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="menu_category.html" class="menu-link">
+                <a href="/restaurant/menu_category" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-ui-checks-grid"></i></span>
                     <span class="menu-text">Menu category</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="table.html" class="menu-link">
+                <a href="/restaurant/table" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-table"></i></span>
                     <span class="menu-text">Table</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="stock_value.html" class="menu-link">
+                <a href="/restaurant/valeur_stock" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-wallet2"></i></span>
                     <span class="menu-text">Valeur de stock</span>
                 </a>
@@ -58,22 +58,22 @@ templ Slidebar(td *render.TemplateData) {
                 </a>
                 <div class="menu-submenu">
                     <div class="menu-item">
-                        <a href="stock.html" class="menu-link">
+                        <a href="/restaurant/stock" class="menu-link">
                             <span class="menu-text">Stock</span>
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="stock_adjustment.html" class="menu-link">
+                        <a href="/restaurant/ajustement_stock" class="menu-link">
                             <span class="menu-text">Ajustement de stock</span>
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="stock_transfert.html" class="menu-link">
+                        <a href="/restaurant/transfert_stock" class="menu-link">
                             <span class="menu-text">Transfert de stock</span>
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="inventory.html" class="menu-link">
+                        <a href="/restaurant/inventaire" class="menu-link">
                             <span class="menu-text">Inventaire</span>
                         </a>
                     </div>
@@ -84,12 +84,12 @@ templ Slidebar(td *render.TemplateData) {
                         </a>
                         <div class="menu-submenu">
                             <div class="menu-item">
-                                <a href="new_stock_request.html" class="menu-link">
+                                <a href="/restaurant/new_stock_commande" class="menu-link">
                                     <span class="menu-text">New</span>
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a href="stock_request.html" class="menu-link">
+                                <a href="/restaurant/manage_commande_request" class="menu-link">
                                     <span class="menu-text">Manage request</span>
                                 </a>
                             </div>
@@ -115,23 +115,39 @@ templ Slidebar(td *render.TemplateData) {
 
             <div class="menu-header">Personne physique & morale</div>
             <div class="menu-item">
-                <a href="customer.html" class="menu-link">
+                <a href="/personnes/client" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-person-workspace"></i></span>
                     <span class="menu-text">Clients</span>
                 </a>
             </div>
             <div class="menu-item">
-                <a href="supplier.html" class="menu-link">
+                <a href="/personnes/fournisseur" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-person-fill-check"></i></span>
                     <span class="menu-text">Fournisseurs</span>
                 </a>
             </div>
-            <div class="menu-item">
-                <a href="employee.html" class="menu-link">
-                    <span class="menu-icon"><i class="bi bi-person-gear"></i></span>
+              <div class="menu-item has-sub">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon">
+                        <i class="bi bi-bag"></i>
+                    </span>
                     <span class="menu-text">Employees</span>
+                    <span class="menu-caret"><b class="caret"></b></span>
                 </a>
+                <div class="menu-submenu">
+                    <div class="menu-item">
+                        <a href="/personnes/employe" class="menu-link">
+                            <span class="menu-text"> Gestion Employees</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="/personnes/employe_affectation" class="menu-link">
+                            <span class="menu-text">Affectation </span>
+                        </a>
+                    </div>
+                </div>
             </div>
+            
 
 
             <div class="menu-header">Finance</div>
