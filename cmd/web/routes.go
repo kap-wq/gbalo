@@ -29,7 +29,7 @@ func (app *application) routes() http.Handler {
 		// 	w.Write([]byte(`{"data":"API 📺 Up and Running"}`))
 		// })
 		r.Get("/", app.Handler.HomeHandler)
-	
+
 	})
 
 	r.Route("/restaurant", func(r chi.Router) {
@@ -44,7 +44,6 @@ func (app *application) routes() http.Handler {
 		r.Get("/table", app.Handler.TableHandler)
 		r.Get("/valeur_stock", app.Handler.Valeur_stockHandler)
 
-
 		r.Get("/stock", app.Handler.StockHandler)
 		r.Get("/ajustement_stock", app.Handler.Ajustement_stockHandler)
 		r.Get("/transfert_stock", app.Handler.Transfert_stockHandler)
@@ -52,14 +51,10 @@ func (app *application) routes() http.Handler {
 		r.Get("/new_stock_commande", app.Handler.New_stock_commandeHandler)
 		r.Get("/manage_commande_request", app.Handler.Manage_commande_requestHandler)
 
-
-
-
 	})
 
 	r.Route("/personnes", func(r chi.Router) {
-	// navigation routes
-	r.Route("/navigation", func(r chi.Router) {
+
 		// add routes here
 		// r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		// 	w.Header().Set("Content-Type", "application/json")
@@ -70,11 +65,12 @@ func (app *application) routes() http.Handler {
 		r.Get("/fournisseur", app.Handler.FournisseurHandler)
 		r.Get("/employe", app.Handler.EmployeHandler)
 		r.Get("/employe_affectation", app.Handler.Employe_affectationHandler)
-		
 
 	})
 
-	
+	// navigation routes
+	r.Route("/navigation", func(r chi.Router) {
+
 		r.Get("/dashboard", app.Handler.DashboardHandler)
 		r.Get("/analytics", app.Handler.AnalyticsHandler)
 
