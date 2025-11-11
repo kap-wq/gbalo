@@ -20,20 +20,20 @@ templ Client(td *render.TemplateData, i interface{}) {
         
 </div>
 
-			<div class="mb-sm-4 mb-3 d-sm-flex">
-				<div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
-				<div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
-				<div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
-					<a href="#" data-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-						<div role="separator" class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Separated link</a>
-					</div>
-				</div>
+	<div class="mb-sm-4 mb-3 d-sm-flex small text-inverse text-opacity-75">
+		<a href="#" class="d-inline-flex align-items-center text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a>
+		<a href="#" class="d-inline-flex align-items-center text-decoration-none ms-sm-4 mt-sm-0 mt-2"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a>
+		<div class="dropdown ms-sm-4 mt-sm-0 mt-2">
+			<a href="#" data-bs-toggle="dropdown" class="text-decoration-none">More Actions</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<div role="separator" class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
 			</div>
+		</div>
+	</div>
 
 <div class="data-management" data-id="table">
   <div class="table-responsive">
