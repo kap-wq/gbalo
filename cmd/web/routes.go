@@ -64,8 +64,6 @@ func (app *application) routes() http.Handler {
 		r.Get("/client", app.Handler.ClientHandler)
 		r.Get("/fournisseur", app.Handler.FournisseurHandler)
 		r.Get("/employe", app.Handler.EmployeHandler)
-		r.Get("/employe_affectation", app.Handler.Employe_affectationHandler)
-
 	})
 
 	// navigation routes
