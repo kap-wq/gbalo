@@ -9,15 +9,15 @@ templ Fournisseur(td *render.TemplateData, i interface{}) {
 {{vm := i.(*viewmodel.IndexViewModel)}}
 @component.Base(vm.Title, td) {
 <div class="container-fluid px-0">
-	<div class="d-flex align-items-center mb-3">
-		<div>
+<div class="d-flex align-items-center mb-3">
+        <div>
 			<ol class="breadcrumb mb-1">
-				<li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
 				<li class="breadcrumb-item active">FOURNISSEUR</li>
-			</ol>
-			<h1 class="page-header mb-0">Gestion Fournisseur</h1>
-		</div>
-	</div>
+            </ol>
+            <h1 class="page-header mb-0">Gestion Fournisseur</h1>
+        </div>  
+</div>
 
 <style>
 	#available-products .list-group-item[draggable="true"],
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="card h-100">
 				<div class="card-header d-flex align-items-center bg-inverse bg-opacity-10 fw-400">
 					Fournisseurs
-				</div>
+      </div>
 				<div class="card-body p-0">
 					<div class="p-4">
 						<div class="input-group">
@@ -251,8 +251,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						</table>
 					</div>
 				</div>
-			</div>
-		</div>
+          </div>
+</div>
 
 		<!-- COLONNE DROITE : Formulaire fournisseur -->
 		<div class="col-xxl-6">
@@ -267,24 +267,24 @@ document.addEventListener('DOMContentLoaded', function() {
 						<div class="col-md-4">
 							<label class="form-label">Supplier ID</label>
 							<input type="text" class="form-control" placeholder="SP006" value="SP006" readonly>
-						</div>
+                </div>
 						<div class="col-md-4">
 							<label class="form-label">Supplier Name</label>
 							<input type="text" class="form-control" placeholder="Supplier Name">
-						</div>
+                </div>
 						<div class="col-md-4">
 							<label class="form-label">Category</label>
-							<select class="form-select">
-								<option value="">Select Category</option>
+                  <select class="form-select">
+                    <option value="">Select Category</option>
 								<option>Commercial</option>
 								<option>Food & Beverage</option>
 								<option>Equipment</option>
 								<option>Services</option>
-							</select>
-						</div>
-					</div>
+                  </select>
+                </div>
+              </div>
 
-					<!-- Onglets -->
+              <!-- Onglets -->
 					<ul class="nav nav-tabs mb-3 small">
 						<li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-head-office">Head Office</a></li>
 						<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-branches">Branches</a></li>
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-bank">Bank</a></li>
 						<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-various">Various</a></li>
 						<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-products">Products Supplied</a></li>
-					</ul>
+              </ul>
 
 					<div class="tab-content">
 						<!-- Head Office Tab -->
@@ -327,7 +327,6 @@ document.addEventListener('DOMContentLoaded', function() {
 									<input type="text" class="form-control" placeholder="Contry">
 								</div>
 							</div>
-							<!-- Section inférieure Head Office -->
 						</div>
 
 						<!-- Branches Tab -->
@@ -486,8 +485,8 @@ document.addEventListener('DOMContentLoaded', function() {
 										<label class="form-label">No Taxpayer</label>
 										<input type="text" class="form-control" placeholder="No Taxpayer">
 									</div>
-								</div>
-							</div>
+                  </div>
+                </div>
 							<hr class="my-3">
 							<!-- Commercial Sub-section -->
 							<div class="mb-3">
@@ -543,8 +542,8 @@ document.addEventListener('DOMContentLoaded', function() {
 										<label class="form-label">Credit Limit</label>
 										<input type="number" class="form-control" placeholder="Credit Limit">
 									</div>
-								</div>
-							</div>
+                  </div>
+                </div>
 							<hr class="my-3">
 							<!-- Required Documents Sub-section -->
 							<div class="mb-3">
@@ -577,10 +576,10 @@ document.addEventListener('DOMContentLoaded', function() {
 											<option>No</option>
 											<option>Yes</option>
 										</select>
-									</div>
-								</div>
-							</div>
-						</div>
+                  </div>
+                </div>
+                  </div>
+                </div>
 
 						<!-- Products Supplied Tab -->
 						<div class="tab-pane fade" id="tab-products">
@@ -616,8 +615,8 @@ document.addEventListener('DOMContentLoaded', function() {
 											</div>
 											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT009" data-category="Drinks and Alcohol">
 												<small><strong>Drinks and Alcohol</strong></small>
-											</div>
-										</div>
+                  </div>
+                </div>
 										<div class="mt-3">
 											<div class="list-group-item p-2 fw-bold small bg-light">Product</div>
 											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="PR001" data-name="Product 1">
@@ -632,9 +631,9 @@ document.addEventListener('DOMContentLoaded', function() {
 											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="PR026" data-name="Sweet Corn">
 												<small>PR026 - Sweet Corn</small>
 											</div>
-										</div>
-									</div>
-								</div>
+                  </div>
+                </div>
+              </div>
 								<div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
 									<button type="button" class="btn btn-success btn-sm mb-2" onclick="moveToSelected()" title="Add Selected">
 										<i class="fa fa-arrow-right"></i>
@@ -652,19 +651,19 @@ document.addEventListener('DOMContentLoaded', function() {
 											</div>
 											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT003" data-name="Drinks">
 												<small>CT003 - Drinks</small>
-											</div>
+                </div>
 											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT006" data-name="Fruits">
 												<small>CT006 - Fruits</small>
-											</div>
+                </div>
 											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT007" data-name="Toiletries">
 												<small>CT007 - Toiletries</small>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 					<!-- Action Buttons -->
 					<div class="d-flex justify-content-between mt-3 pt-3 border-top">
@@ -684,9 +683,9 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>
 }
 }

@@ -9,37 +9,37 @@ templ Employe(td *render.TemplateData, i interface{}) {
 {{vm := i.(*viewmodel.IndexViewModel)}}
 @component.Base(vm.Title, td) {
 <div class="container-fluid px-0">
-	<div class="d-flex align-items-center mb-3">
-		<div>
+		<div class="d-flex align-items-center mb-3">
+			<div>
 			<ol class="breadcrumb mb-1">
-				<li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
+					<li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
 				<li class="breadcrumb-item active">EMPLOYÉS</li>
-			</ol>
-			<h1 class="page-header mb-0">Gestion Employés</h1>
+				</ol>
+				<h1 class="page-header mb-0">Gestion Employés</h1>
+				</div>
 		</div>
-	</div>
-
+	
 	<div class="mb-sm-4 mb-3 d-sm-flex small text-inverse text-opacity-75">
 		<a href="#" class="d-inline-flex align-items-center text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a>
 		<a href="#" class="d-inline-flex align-items-center text-decoration-none ms-sm-4 mt-sm-0 mt-2"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a>
 		<div class="dropdown ms-sm-4 mt-sm-0 mt-2">
 			<a href="#" data-bs-toggle="dropdown" class="text-decoration-none">More Actions</a>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
-				<div role="separator" class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Separated link</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+					<div role="separator" class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Separated link</a>
+				</div>
 			</div>
 		</div>
-	</div>
 
 	<div class="row g-4">
 		<div class="col-xxl-6">
 			<div class="card h-100">
-				<div class="card-header d-flex align-items-center bg-inverse bg-opacity-10 fw-400">
-					Employés
-				</div>
+					<div class="card-header d-flex align-items-center bg-inverse bg-opacity-10 fw-400">
+						Employés
+					</div>
 				<div class="card-body p-0">
 					<div class="p-4">
 						<div class="input-group">
@@ -57,59 +57,59 @@ templ Employe(td *render.TemplateData, i interface{}) {
 									<input type="text" class="form-control ps-35px" placeholder="Search employees">
 								</div>
 							</div>
-						</div>
+          			</div>
 					</div>
 					<div class="table-responsive border-top">
-						<table class="table table-striped table-borderless table-sm m-0 text-nowrap small">
-							<thead>
-								<tr class="border-bottom">
-									<th class="px-10px">ID</th>
+              <table class="table table-striped table-borderless table-sm m-0 text-nowrap small">
+                <thead>
+                  <tr class="border-bottom">
+                    <th class="px-10px">ID</th>
 									<th class="px-10px">First Name</th>
 									<th class="px-10px">Last Name</th>
 									<th class="px-10px">Branch</th>
-									<th class="px-10px">Telephone</th>
-									<th class="px-10px">Email</th>
+                    <th class="px-10px">Telephone</th>
+                    <th class="px-10px">Email</th>
 									<th class="px-10px">AC Num</th>
 									<th class="px-10px">Picture</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
 									<td>EMP001</td>
 									<td>Mawuko</td>
 									<td>Ahingo</td>
 									<td>Main Kitchen</td>
-									<td>0950511122</td>
+                    <td>0950511122</td>
 									<td>mawuko@posapp.com</td>
 									<td>AC-02340</td>
 									<td><span class="badge bg-secondary">Photo</span></td>
-								</tr>
-								<tr>
+                  </tr>
+                  <tr>
 									<td>EMP002</td>
-									<td>Manasse</td>
+                    <td>Manasse</td>
 									<td>Doe</td>
 									<td>Front Desk</td>
-									<td>023445865</td>
+                    <td>023445865</td>
 									<td>manasse@posapp.com</td>
 									<td>AC-04561</td>
 									<td><span class="badge bg-secondary">Photo</span></td>
-								</tr>
-								<tr>
+                  </tr>
+                  <tr>
 									<td>EMP003</td>
-									<td>Seine</td>
+                    <td>Seine</td>
 									<td>Mensah</td>
 									<td>Bakery</td>
-									<td>02145545</td>
+                    <td>02145545</td>
 									<td>seine@posapp.com</td>
 									<td>AC-06420</td>
 									<td><span class="badge bg-secondary">Photo</span></td>
-								</tr>
-							</tbody>
-						</table>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+       	 </div>
 					</div>
-				</div>
-			</div>
-		</div>
 
 		<div class="col-xxl-6">
 			<div class="card h-100">
@@ -304,7 +304,7 @@ templ Employe(td *render.TemplateData, i interface{}) {
 										<option>USD</option>
 										<option>EUR</option>
 									</select>
-								</div>
+					</div>
 								<div class="col-md-4">
 									<label class="form-label">Pay Frequency</label>
 									<select class="form-select">

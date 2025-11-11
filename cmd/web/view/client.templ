@@ -20,7 +20,7 @@ templ Client(td *render.TemplateData, i interface{}) {
         
 </div>
 
-	<div class="mb-sm-4 mb-3 d-sm-flex small text-inverse text-opacity-75">
+	<div class="mb-sm-4 mb-3 d-sm-flex align-items-center small text-inverse text-opacity-75">
 		<a href="#" class="d-inline-flex align-items-center text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a>
 		<a href="#" class="d-inline-flex align-items-center text-decoration-none ms-sm-4 mt-sm-0 mt-2"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a>
 		<div class="dropdown ms-sm-4 mt-sm-0 mt-2">
@@ -33,6 +33,11 @@ templ Client(td *render.TemplateData, i interface{}) {
 				<a class="dropdown-item" href="#">Separated link</a>
 			</div>
 		</div>
+        <div class="ms-auto">
+    <a href="#" class="btn btn-outline-theme" data-bs-toggle="modal" data-bs-target="#clientModal">
+        <i class="fa fa-plus-circle fa-fw me-1"></i> Add
+    </a>
+</div>
 	</div>
 
 <div class="data-management" data-id="table">
@@ -44,31 +49,39 @@ templ Client(td *render.TemplateData, i interface{}) {
       </div>
       <div class="card-body p-0 flex-1 overflow-hidden">
         <div class="file-manager h-100" id="fileManager">
-          <!-- Barre de menu recherche avec filtres alignés horizontalement -->
-<div class="tab-content p-4">
-					<div class="tab-pane fade show active" id="allTab">
-						<!-- BEGIN input-group -->
-						<div class="input-group mb-4">
-							<button class="btn btn-outline-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter products &nbsp;</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-								<div role="separator" class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
-							</div>
-							<div class="flex-fill position-relative">
-								<div class="input-group">
-									<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 pe-0" style="z-index: 1020;">
-										<i class="fa fa-search opacity-5"></i>
-									</div>
-									<input type="text" class="form-control ps-35px" placeholder="Search products">
-								</div>
-							</div>
-						</div>
-						<!-- END input-group -->
+          <!-- Barre de menu supérieure avec filtres alignés horizontalement -->
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <fieldset class="file-manager-toolbar d-flex align-items-center justify-content-between mb-0 py-2 border rounded px-2 me-2" style="width: calc(100% - 160px);">
+              <legend class="float-none w-auto px-2 mb-0 small">Filtres</legend>
+              <!-- Groupe gauche: filtres principaux -->
+              <div class="d-flex align-items-center">
+                <input type="text" class="form-control me-2" placeholder="Code" style="width: 100px;">
+                <select class="form-select me-2" name="store" style="width: 100px;">
+                  <option value="Tout">Article: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+                <select class="form-select me-2" name="group" style="width: 100px;">
+                  <option value="Tout">Groupe: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+                <select class="form-select me-2" name="category" style="width: 100px;">
+                  <option value="Tout">Catégorie: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+                <select class="form-select me-2" name="store" style="width: 100px;">
+                  <option value="Tout">Store: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+              </div>
+              <!-- Groupe droit: année -->
+              <div class="d-flex align-items-center">
+                <select class="form-select me-2" name="year" style="width: 100px;">
+                  <option value="2021">Année: 2021</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+              </div>
+            </fieldset>
           </div>
-</div>
           <!-- Section principale avec tableau -->
           <div class="file-manager-container d-flex flex-column" style="height: calc(100% - 60px);">
             <div class="flex-grow-1 overflow-hidden">
@@ -81,57 +94,14 @@ templ Client(td *render.TemplateData, i interface{}) {
                     <th class="px-10px">Email</th>
                     <th class="px-10px">Residence</th>
                     <th class="px-10px">Delivery Zone</th>
-                    <th class="px-10px">Sales Person</th>
-                    <th class="px-10px">Ope Zone</th>
-                    <th class="px-10px">Client Type</th>
+                    <th class="px-10px">Customer Type</th>
                     <th class="px-10px">Payment Method</th>
                     <th class="px-10px">Payment Term</th>
                     <th class="px-10px">Payment Source</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>CL001</td>
-                    <td>Mawuko Ahingo</td>
-                    <td>0950511122</td>
-                    <td>Email</td>
-                    <td>Residence</td>
-                    <td>DeliveryZone</td>
-                    <td></td>
-                    <td>OpeZone</td>
-                    <td></td>
-                    <td>Cash</td>
-                    <td>Daily</td>
-                    <td>From Company</td>
-                  </tr>
-                  <tr>
-                    <td>CL002</td>
-                    <td>Manasse</td>
-                    <td>023445865</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>sf</td>
-                    <td>rid</td>
-                    <td></td>
-                    <td>Transfer</td>
-                    <td>Bi-Monthly</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>CL003</td>
-                    <td>Seine</td>
-                    <td>02145545</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Cash</td>
-                    <td>Bi-Monthly</td>
-                    <td></td>
-                  </tr>
+                  <!-- Données peuvent être ajoutées ici -->
                 </tbody>
               </table>
             </div>
@@ -147,5 +117,185 @@ templ Client(td *render.TemplateData, i interface{}) {
     </div>
   </div>
 </div>
+
+<!-- Client Add Modal -->
+<div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clientModalLabel"><i class="fa fa-user me-2"></i>New Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Search bar row -->
+        <div class="row g-2 align-items-center mb-3">
+          <div class="col-md-4">
+            <label class="form-label small mb-1">ID</label>
+            <input class="form-control form-control-sm" placeholder="CL0001">
+          </div>
+          <div class="col-md-8">
+            <label class="form-label small mb-1">CUSTOMER NAME</label>
+            <input class="form-control form-control-sm" placeholder="Customer Name">
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs small mb-3">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#client-personal">Personal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#client-payment">Payment Setup</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <!-- Personal Tab -->
+          <div class="tab-pane fade show active" id="client-personal">
+            <fieldset class="border rounded p-3 mb-3">
+              <legend class="float-none w-auto px-2 small mb-0">Identity</legend>
+              <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                  <label class="form-label">ID</label>
+                  <input class="form-control form-control-sm" placeholder="CL0001">
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label">Name</label>
+                  <input class="form-control form-control-sm" placeholder="Full name">
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Gender</label>
+                  <select class="form-select form-select-sm">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Date of birth</label>
+                  <input type="date" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Group</label>
+                  <select class="form-select form-select-sm">
+                    <option>Regular</option>
+                    <option>VIP</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Nationality</label>
+                  <input class="form-control form-control-sm" placeholder="Nationality">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Customer Type</label>
+                  <select class="form-select form-select-sm">
+                    <option>Credit</option>
+                    <option>Cash</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">National ID</label>
+                  <input class="form-control form-control-sm" placeholder="National ID">
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="border rounded p-3">
+              <legend class="float-none w-auto px-2 small mb-0">Address</legend>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">Residence</label>
+                  <input class="form-control form-control-sm" placeholder="Residence">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">P. O. Box</label>
+                  <input class="form-control form-control-sm" placeholder="P. O. Box">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Telephone</label>
+                  <input class="form-control form-control-sm" placeholder="Telephone">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-control form-control-sm" placeholder="Email">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Country</label>
+                  <input class="form-control form-control-sm" placeholder="Country">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">City</label>
+                  <input class="form-control form-control-sm" placeholder="City">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Delivery</label>
+                  <select class="form-select form-select-sm">
+                    <option value="">Select delivery</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Delivery Zone</label>
+                  <select class="form-select form-select-sm">
+                    <option value="">Select zone</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Payment Setup Tab -->
+          <div class="tab-pane fade" id="client-payment">
+            <fieldset class="border rounded p-3">
+              <legend class="float-none w-auto px-2 small mb-0">Payment Setup</legend>
+              <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                  <label class="form-label">Payment Method</label>
+                  <select class="form-select form-select-sm">
+                    <option>Cash</option>
+                    <option>Cheque</option>
+                    <option>Transfer</option>
+                  </select>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <label class="form-label">Payment Terms</label>
+                  <select class="form-select form-select-sm">
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Bi-Monthly</option>
+                    <option>Monthly</option>
+                  </select>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <label class="form-label">Payment Source</label>
+                  <select class="form-select form-select-sm">
+                    <option>From Company</option>
+                    <option>From Customer</option>
+                  </select>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <label class="form-label">Delivery</label>
+                  <select class="form-select form-select-sm">
+                    <option value="">Select delivery</option>
+                  </select>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <label class="form-label">Agent</label>
+                  <select class="form-select form-select-sm">
+                    <option value="">Select agent</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success"><i class="fa fa-save me-1"></i> Save</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
 }
 }
