@@ -26,6 +26,7 @@ templ Menu(td *render.TemplateData, i interface{}) {
     <div class="mb-sm-4 mb-3 d-sm-flex">
         <div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
         <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-print fa-fw me-1 text-theme"></i> Imprimer</a></div>
         <div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
             <a href="#" data-bs-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
             <div class="dropdown-menu">
@@ -44,33 +45,47 @@ templ Menu(td *render.TemplateData, i interface{}) {
         </div>
         <div class="card-body">
             <form>
-                <div class="row mb-3">
-                    <div class="col-sm-3">
-                        <label for="code" class="form-label">Code</label>
-                        <input type="text" class="form-control" id="code" placeholder="Enter code">
-                    </div>
-                    <div class="col-sm-3">
-                        <label for="nomArticle" class="form-label">Nom de l'article</label>
-                        <input type="text" class="form-control" id="nomArticle" placeholder="Enter article name">
-                    </div>
-                    <div class="col-sm-3">
-                        <label for="categorie" class="form-label">Catégorie</label>
-                        <select class="form-select" id="categorie">
-                            <option value="">Sélectionner une catégorie</option>
-                            <option value="vetements">Vêtements</option>
-                            <option value="chaussures">Chaussures</option>
-                            <option value="accessoires">Accessoires</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <label for="sousCategorie" class="form-label">Sous-catégorie</label>
-                        <input type="text" class="form-control" id="sousCategorie" placeholder="Enter sous-catégorie">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 text-end">
-                        <button type="submit" class="btn btn-outline-theme"><i class="fa fa-search me-1"></i> Rechercher</button>
-                    </div>
+                <div class="d-flex align-items-center mb-2">
+                    <fieldset class="file-manager-toolbar d-flex align-items-center justify-content-between mb-0 py-2 border rounded px-2 w-100">
+                        <legend class="float-none w-auto px-2 mb-0 small">Filtres</legend>
+                        <div class="row g-2 align-items-end mb-0 w-100">
+                            <div class="col-sm-2">
+                                <label for="code" class="form-label">Code</label>
+                                <input type="text" class="form-control" id="code" placeholder="Enter code">
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="nomArticle" class="form-label">Nom de l'article</label>
+                                <input type="text" class="form-control" id="nomArticle" placeholder="Enter article name">
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="categorie" class="form-label">Catégorie</label>
+                                <select class="form-select" id="categorie">
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <option value="vetements">Vêtements</option>
+                                    <option value="chaussures">Chaussures</option>
+                                    <option value="accessoires">Accessoires</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="sousCategorie" class="form-label">Sous-catégorie</label>
+                                <select class="form-select" id="categorie">
+                                    <option value="">Sélectionner une sous catégorie</option>
+                                    <option value="vetements">Vêtements</option>
+                                    <option value="chaussures">Chaussures</option>
+                                    <option value="accessoires">Accessoires</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="sousCategorie" class="form-label"> Status</label>
+                                <select class="form-select" id="categorie">
+                                    <option value="">Sélectionner une status</option>
+                                    <option value="vetements">Active</option>
+                                    <option value="chaussures">Archive</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </form>
         </div>
