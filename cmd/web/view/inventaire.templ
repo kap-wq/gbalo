@@ -19,6 +19,21 @@ templ Inventaire(td *render.TemplateData, i interface{}) {
         </div>
         
 </div>
+ <div class="mb-sm-4 mb-3 d-sm-flex">
+        <div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
+            <a href="#" data-bs-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bulkEditModal">
+                    <i class="far fa-lg fa-fw me-2 fa-edit fa-fw me-1 text-theme"></i> Modification en masse
+                </a>
+                <a class="dropdown-item" href="/menu/action2">
+                    <i class="far fa-lg fa-fw me-2 fa-trash-alt fa-fw me-1 text-theme"></i> Supression en masse
+                </a>
+            </div>
+        </div>
+    </div>
 <div class="data-management" data-id="table">
   <div class="table-responsive">
     <div class="card flex-1 m-0 d-flex flex-column overflow-hidden rounded-0">
@@ -29,39 +44,39 @@ templ Inventaire(td *render.TemplateData, i interface{}) {
       <div class="card-body p-0 flex-1 overflow-hidden">
         <div class="file-manager h-100" id="fileManager">
           <!-- Barre de menu supérieure avec filtres alignés horizontalement -->
-          <div class="file-manager-toolbar d-flex align-items-center justify-content-between mb-2">
-            <div class="d-flex align-items-center">
-              <button class="btn btn-sm btn-secondary me-2"><i class="fa fa-file"></i> Fichier</button>
-              <button class="btn btn-sm btn-secondary me-2"><i class="fa fa-times"></i> Annuler Finventaire</button>
-              <button class="btn btn-sm btn-success me-2"><i class="fa fa-plus"></i> Create Inventory</button>
-            </div>
-            <div class="d-flex align-items-center">
-              <input type="text" class="form-control me-2" placeholder="Code" style="width: 100px;">
-              <select class="form-select me-2" name="group" style="width: 100px;">
-                <option value="Tout">Groupe: Tout</option>
-                <!-- Ajouter d'autres options si nécessaire -->
-              </select>
-              <select class="form-select me-2" name="category" style="width: 100px;">
-                <option value="Tout">Catégorie: Tout</option>
-                <!-- Ajouter d'autres options si nécessaire -->
-              </select>
-              <select class="form-select me-2" name="store" style="width: 100px;">
-                <option value="Tout">Store: Tout</option>
-                <!-- Ajouter d'autres options si nécessaire -->
-              </select>
-              <select class="form-select me-2" name="store" style="width: 100px;">
-                <option value="Tout">Article: Tout</option>
-                <!-- Ajouter d'autres options si nécessaire -->
-              </select>
-              
-              <select class="form-select me-2" name="year" style="width: 100px;">
-                <option value="2021">Année: 2021</option>
-                <!-- Ajouter d'autres options si nécessaire -->
-              </select>
-              <button class="btn btn-sm btn-success"><i class="fa fa-save"></i> Sauvegarder</button>
-            </div>
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <fieldset class="file-manager-toolbar d-flex align-items-center justify-content-between mb-0 py-2 border rounded px-2 me-2" style="width: calc(100% - 160px);">
+              <legend class="float-none w-auto px-2 mb-0 small">Filtres</legend>
+              <!-- Groupe gauche: filtres principaux -->
+              <div class="d-flex align-items-center">
+                <input type="text" class="form-control me-2" placeholder="Code" style="width: 100px;">
+                <select class="form-select me-2" name="store" style="width: 100px;">
+                  <option value="Tout">Article: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+                <select class="form-select me-2" name="group" style="width: 100px;">
+                  <option value="Tout">Groupe: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+                <select class="form-select me-2" name="category" style="width: 100px;">
+                  <option value="Tout">Catégorie: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+                <select class="form-select me-2" name="store" style="width: 100px;">
+                  <option value="Tout">Store: Tout</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+              </div>
+              <!-- Groupe droit: année -->
+              <div class="d-flex align-items-center">
+                <select class="form-select me-2" name="year" style="width: 100px;">
+                  <option value="2021">Année: 2021</option>
+                  <!-- Ajouter d'autres options si nécessaire -->
+                </select>
+              </div>
+            </fieldset>
+            <button class="btn btn-sm btn-success align-self-center"><i class="fa fa-save"></i> Generer </button>
           </div>
-
           <!-- Section principale avec tableau -->
           <div class="file-manager-container d-flex flex-column" style="height: calc(100% - 60px);">
             <div class="flex-grow-1 overflow-hidden">
