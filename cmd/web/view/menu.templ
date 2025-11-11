@@ -9,366 +9,373 @@ templ Menu(td *render.TemplateData, i interface{}) {
 {{vm := i.(*viewmodel.IndexViewModel)}}
 @component.Base(vm.Title, td) {
 
-<div class="d-flex align-items-center mb-3">
-            <div>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:;">PAGES</a></li>
-                    <li class="breadcrumb-item active">MENU </li>
-                </ol>
-                <h1 class="page-header mb-0">Gestion menu</h1>
-            </div>
-          <div class="ms-auto">
-					<a href="#" class="btn btn-outline-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add food</a>
-				</div>
+	<div class="d-flex align-items-center mb-3">
+        <div>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">PAGES</a></li>
+                <li class="breadcrumb-item active">MENU</li>
+            </ul>
+            <h1 class="page-header mb-0">Gestion menu</h1>
         </div>
-        <div class="data-management" data-id="table">
-            <div class="table-responsive">
-                <div class="card flex-1 m-0 d-flex flex-column overflow-hidden rounded-0">
-                    <div class="card-header fw-bold small d-flex">
-                        <span class="flex-grow-1">Inventaire</span>
-                        <a href="#" data-toggle="card-expand" class="text-white text-opacity-50 text-decoration-none"><i class="fa fa-fw fa-expand"></i> EXPAND</a>
+        <div class="ms-auto">
+    <a href="#" class="btn btn-outline-theme" data-bs-toggle="modal" data-bs-target="#menuModal">
+        <i class="fa fa-plus-circle fa-fw me-1"></i> Add menu
+    </a>
+</div>
+    </div>
+    <div class="mb-sm-4 mb-3 d-sm-flex">
+        <div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
+            <a href="#" data-bs-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bulkEditModal">
+                    <i class="far fa-lg fa-fw me-2 fa-edit fa-fw me-1 text-theme"></i> Modification en masse
+                </a>
+                <a class="dropdown-item" href="/menu/action2">
+                    <i class="far fa-lg fa-fw me-2 fa-trash-alt fa-fw me-1 text-theme"></i> Supression en masse
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4>Recherche</h4>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="code" placeholder="Enter code">
                     </div>
-                    
-                        
-                            <div class="pos card" id="pos">
-                                <div class="pos-container card-body d-flex">
-                                    <div class="pos-menu">
-                                        <div class="logo">
-                                            <a href="index.html">
-                                                <div class="logo-img"><i class="bi bi-x-diamond" style="font-size: 2.1rem;"></i></div>
-                                                <div class="logo-text">Pine & Dine</div>
-                                            </a>
-                                        </div>
-                                        <div class="nav-container">
-                                            <div data-bs-skip-mobile="true" data-bs-height="100%" data-bs-scrollbar="true">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" href="#" data-filter="all" aria-label="Show all dishes">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-utensils"></i> All Dishes
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-filter="meat" aria-label="Show meat dishes">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-drumstick-bite"></i> Meat
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-filter="burger" aria-label="Show burger dishes">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-hamburger"></i> Burger
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-filter="pizza" aria-label="Show pizza dishes">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-pizza-slice"></i> Pizza
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-filter="drinks" aria-label="Show drinks">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-cocktail"></i> Drinks
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-filter="desserts" aria-label="Show desserts">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-ice-cream"></i> Desserts
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-filter="snacks" aria-label="Show snacks">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <i class="fa fa-fw fa-cookie-bite"></i> Snacks
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pos-content flex-grow-1">
-                                        <div class="pos-content-container h-100 p-4" data-bs-scrollbar="true" data-bs-height="100%">
-                                            <div class="row gx-4">
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-1.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Grill Chicken Chop&reg;</div>
-                                                                    <div class="desc">chicken, egg, mushroom, salad</div>
-                                                                    <div class="price">$10.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-2.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Grill Pork Chop&reg;</div>
-                                                                    <div class="desc">pork, egg, mushroom, salad</div>
-                                                                    <div class="price">$12.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-3.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Capellini Tomato Sauce&reg;</div>
-                                                                    <div class="desc">spaghetti, tomato, mushroom</div>
-                                                                    <div class="price">$11.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-4.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Vegan Salad Bowl&reg;</div>
-                                                                    <div class="desc">apple, carrot, tomato</div>
-                                                                    <div class="price">$6.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="pizza">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <div class="pos-product not-available">
-                                                                <div class="img" style="background-image: url(/public/img/product-5.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Hawaiian Pizza&reg;</div>
-                                                                    <div class="desc">pizza, crab meat, pineapple</div>
-                                                                    <div class="price">$20.99</div>
-                                                                </div>
-                                                                <div class="not-available-text">
-                                                                    <div>Not Available</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="burger">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-17.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Perfect Burger</div>
-                                                                    <div class="desc">Dill pickle, cheddar cheese, tomato, red onion, ground chuck beef</div>
-                                                                    <div class="price">$8.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="drinks">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-6.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Avocado Shake</div>
-                                                                    <div class="desc">avocado, milk, vanilla</div>
-                                                                    <div class="price">$3.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="drinks">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-7.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Coffee Latte</div>
-                                                                    <div class="desc">espresso, milk</div>
-                                                                    <div class="price">$2.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="drinks">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-8.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Vita C Detox Juice</div>
-                                                                    <div class="desc">apricot, apple, carrot and ginger juice</div>
-                                                                    <div class="price">$2.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="snacks">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-9.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Pancake</div>
-                                                                    <div class="desc">Non dairy, egg, baking soda, sugar, all purpose flour</div>
-                                                                    <div class="price">$5.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="snacks">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-10.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Mushroom soup</div>
-                                                                    <div class="desc">Evaporated milk, marsala wine, beef cubes, chicken broth, butter</div>
-                                                                    <div class="price">$3.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="snacks">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-11.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Baked chicken wing</div>
-                                                                    <div class="desc">Chicken wings, a1 steak sauce, honey, cayenne pepper</div>
-                                                                    <div class="price">$6.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="meat">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-12.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Veggie Spaghetti</div>
-                                                                    <div class="desc">Yellow squash, pasta, roasted red peppers, zucchini</div>
-                                                                    <div class="price">$12.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-13.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Vanilla Ice Cream</div>
-                                                                    <div class="desc">Heavy whipping cream, white sugar, vanilla extract</div>
-                                                                    <div class="price">$3.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-15.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Perfect Yeast Doughnuts</div>
-                                                                    <div class="desc">Chocolate hazelnut spread, bread flour, doughnuts, quick rise yeast, butter</div>
-                                                                    <div class="price">$2.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-14.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Macarons</div>
-                                                                    <div class="desc">Almond flour, egg whites, heavy cream, food coloring, powdered sugar</div>
-                                                                    <div class="price">$4.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="desserts">
-                                                    <div class="card h-100">
-                                                        <div class="card-body h-100 p-1">
-                                                            <a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#modalPosItem">
-                                                                <div class="img" style="background-image: url(/public/img/product-16.jpg)"></div>
-                                                                <div class="info">
-                                                                    <div class="title">Perfect Vanilla Cupcake</div>
-                                                                    <div class="desc">Baking powder, all purpose flour, plain kefir, vanilla extract</div>
-                                                                    <div class="price">$2.99</div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="col-sm-3">
+                        <label for="nomArticle" class="form-label">Nom de l'article</label>
+                        <input type="text" class="form-control" id="nomArticle" placeholder="Enter article name">
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="categorie" class="form-label">Catégorie</label>
+                        <select class="form-select" id="categorie">
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="vetements">Vêtements</option>
+                            <option value="chaussures">Chaussures</option>
+                            <option value="accessoires">Accessoires</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="sousCategorie" class="form-label">Sous-catégorie</label>
+                        <input type="text" class="form-control" id="sousCategorie" placeholder="Enter sous-catégorie">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-end">
+                        <button type="submit" class="btn btn-outline-theme"><i class="fa fa-search me-1"></i> Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="pt-0 pb-2">Code</th>
+                            <th class="pt-0 pb-2">Article</th>
+                            <th class="pt-0 pb-2">Description</th>
+                            <th class="pt-0 pb-2">Catégorie</th>
+                            <th class="pt-0 pb-2">Sous-catégorie</th>
+                            <th class="pt-0 pb-2">Disponible</th>
+                            <th class="pt-0 pb-2">Unité de mesure</th>
+                            <th class="pt-0 pb-2">Prix habituel</th>
+                            <th class="pt-0 pb-2">Prix réduit</th>
+                            <th class="pt-0 pb-2">Code stock</th>
+                            <th class="pt-0 pb-2">Promotion valu</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-bs-toggle="modal" data-bs-target="#menuModal">
+                            <td class="align-middle">PRD001</td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                   
+                                    <div class="ms-3">
+                                        <a href="page_product_details.html" class="text-inverse text-opacity-75 text-decoration-none">T-shirt Blanc</a>
                                     </div>
                                 </div>
+                            </td>
+                            <td class="align-middle">T-shirt en coton blanc, style classique</td>
+                            <td class="align-middle">Vêtements</td>
+                            <td class="align-middle">T-shirts</td>
+                            <td class="align-middle">
+                                <span class="badge bg-success">Oui</span>
+                            </td>
+                            <td class="align-middle">Unité</td>
+                            <td class="align-middle">29.99 €</td>
+                            <td class="align-middle">24.99 €</td>
+                            <td class="align-middle">STK001</td>
+                            <td class="align-middle">5 €</td>
+                            
+                        </tr>
+                        <tr data-bs-toggle="modal" data-bs-target="#menuModal">
+                            <td class="align-middle">PRD002</td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                   
+                                    <div class="ms-3">
+                                        <a href="page_product_details.html" class="text-inverse text-opacity-75 text-decoration-none">Chaussures Nike Rouge</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">Chaussures de sport rouges, confort optimal</td>
+                            <td class="align-middle">Chaussures</td>
+                            <td class="align-middle">Sport</td>
+                            <td class="align-middle">
+                                <span class="badge bg-danger">Non</span>
+                            </td>
+                            <td class="align-middle">Paire</td>
+                            <td class="align-middle">89.99 €</td>
+                            <td class="align-middle">79.99 €</td>
+                            <td class="align-middle">STK002</td>
+                            <td class="align-middle">10 €</td>
+                            
+                        </tr>
+                        <tr data-bs-toggle="modal" data-bs-target="#menuModal">
+                            <td class="align-middle">PRD003</td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="ms-3">
+                                        <a href="page_product_details.html" class="text-inverse text-opacity-75 text-decoration-none">Jeans Levis Bleu</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">Jeans bleu slim fit, haute qualité</td>
+                            <td class="align-middle">Vêtements</td>
+                            <td class="align-middle">Jeans</td>
+                            <td class="align-middle">
+                                <span class="badge bg-success">Oui</span>
+                            </td>
+                            <td class="align-middle">Unité</td>
+                            <td class="align-middle">59.99 €</td>
+                            <td class="align-middle">49.99 €</td>
+                            <td class="align-middle">STK003</td>
+                            <td class="align-middle">10 €</td>
+                            
+                        </tr>
+                        <tr data-bs-toggle="modal" data-bs-target="#menuModal">
+                            <td class="align-middle">PRD004</td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="ms-3">
+                                        <a href="page_product_details.html" class="text-inverse text-opacity-75 text-decoration-none">Robe Rose</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">Robe rose élégante pour soirées</td>
+                            <td class="align-middle">Vêtements</td>
+                            <td class="align-middle">Robes</td>
+                            <td class="align-middle">
+                                <span class="badge bg-success">Oui</span>
+                            </td>
+                            <td class="align-middle">Unité</td>
+                            <td class="align-middle">79.99 €</td>
+                            <td class="align-middle">69.99 €</td>
+                            <td class="align-middle">STK004</td>
+                            <td class="align-middle">10 €</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-md-flex align-items-center">
+                <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                    Showing 1 to 4 of 4 entries
+                </div>
+                <ul class="pagination mb-0 justify-content-center">
+                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-arrow">
+            <div class="card-arrow-top-left"></div>
+            <div class="card-arrow-top-right"></div>
+            <div class="card-arrow-bottom-left"></div>
+            <div class="card-arrow-bottom-right"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuModalLabel">ME002 - SAMOSA</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="codeModal" class="form-label">Code :</label>
+                                    <input type="text" class="form-control" id="codeModal" value="ME002" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categorieModal" class="form-label">Catégorie :</label>
+                                    <select class="form-select" id="categorieModal">
+                                        <option value="STARTERS" selected>STARTERS</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sousCategorieModal" class="form-label">Sous-catégorie :</label>
+                                    <select class="form-select" id="sousCategorieModal">
+                                        <option value="Side Dishes" selected>Side Dishes</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nomArticleModal" class="form-label">Nom de l'article :</label>
+                                    <input type="text" class="form-control" id="nomArticleModal" value="SAMOSA">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descriptionModal" class="form-label">Description :</label>
+                                    <input type="text" class="form-control" id="descriptionModal">
+                                </div>
                             </div>
-                            <div class="card-arrow">
-                                <div class="card-arrow-top-left"></div>
-                                <div class="card-arrow-top-right"></div>
-                                <div class="card-arrow-bottom-left"></div>
-                                <div class="card-arrow-bottom-right"></div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <img src="/public/img/user2.jpeg" alt="Samosa" class="img-fluid">
+                                </div>
+                                <button type="submit" class="btn btn-outline-default me-2 mb-1 start">
+											<i class="fa fa-fw fa-upload"></i>
+											<span>Start upload</span>
+								</button>
+                                <div class="mb-3">
+                                    <label for="uniteVenteModal" class="form-label">Unité de vente :</label>
+                                    <select class="form-select" id="uniteVenteModal">
+                                        <option value="PLT" selected>PLT</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="emplacementPrModal" class="form-label">Emplacement Pr :</label>
+                                    <select class="form-select" id="emplacementPrModal">
+                                        <option value="Kitchen" selected>Kitchen</option>
+                                    </select>
+                                </div>
                             </div>
-                        
-                    
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Tarification</button>
+                                    <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Cost Per Plate</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">supprimer</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Sauvegarder</button>
                 </div>
             </div>
         </div>
+    </div>
+  
+
+    <!-- Modal Modification en Gros (Bulk Edit) -->
+<div class="modal fade" id="bulkEditModal" tabindex="-1" aria-labelledby="bulkEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- En-tête -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulkEditModalLabel">Modification en Gros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Corps du modal -->
+            <div class="modal-body">
+                <!-- Zone Recherche -->
+                <div class="mb-3">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto"><strong>Recherche</strong></div>
+                        <div class="col">
+                            <label class="form-label small mb-1">Code :</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="">
+                        </div>
+                        <div class="col">
+                            <label class="form-label small mb-1">Article N° :</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="">
+                        </div>
+                        <div class="col">
+                            <label class="form-label small mb-1">Catégorie :</label>
+                            <input type="text" class="form-control form-control-sm" value="WATER" readonly>
+                        </div>
+                        <div class="col">
+                            <label class="form-label small mb-1">Sous-Catégorie :</label>
+                            <select class="form-select form-select-sm">
+                                <option>Juices & Smoothies</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tableau vide -->
+                <div class="table-responsive mb-4" style="height: 200px;">
+                    <table class="table table-bordered table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;"><input type="checkbox" id="selectAll"></th>
+                                <th>Code</th>
+                                <th>Article</th>
+                                <th>Catégorie</th>
+                                <th>Sous-Catégorie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Vide comme sur l'image -->
+                            <tr><td colspan="5" class="text-center text-muted">Aucun article sélectionné</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Zone d'action en bas -->
+                <div class="p-3">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                            <label class="form-label mb-1"><strong>Type</strong></label>
+                            <select class="form-select form-select-sm">
+                                <option>Category</option>
+                                <option>Discount</option>
+                                <option>Price</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="form-label mb-1"><strong>Nouvelle étiquette</strong></label>
+                            <input type="text" class="form-control form-control-sm" value="WATER">
+                        </div>
+                        <div class="col-auto d-flex align-items-end">
+                            <button type="button" class="btn btn-outline-secondary me-2">Discount</button>
+                        </div>
+                        <div class="col-auto d-flex align-items-end">
+                            <button type="button" class="btn btn-primary">Appliquer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pied du modal -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 }
 }
