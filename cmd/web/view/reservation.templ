@@ -1,0 +1,79 @@
+package view
+
+import "app/cmd/web/view/component"
+import "app/cmd/web/viewmodel"
+import "github.com/socle-lab/render"
+
+
+templ Reservation(td *render.TemplateData, i interface{}) {
+{{vm := i.(*viewmodel.IndexViewModel)}}
+@component.Base(vm.Title, td) {
+
+<!-- BEGIN #content -->
+  <div id="content" class="app-content">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">HÔTEL</a></li>
+      <li class="breadcrumb-item"><a href="hotel_rooms.html">Chambres</a></li>
+      <li class="breadcrumb-item active">Nouvelle Réservation</li>
+    </ul>
+    <h1 class="page-header mb-4">Nouvelle Réservation</h1>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <form>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nom du client</label>
+                  <input type="text" class="form-control" placeholder="Nom complet" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Téléphone</label>
+                  <input type="text" class="form-control" placeholder="Numéro de téléphone" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Date d'arrivée</label>
+                  <input type="date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Date de départ</label>
+                  <input type="date" class="form-control" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Chambre</label>
+                <select class="form-select" required>
+                  <option value="">Sélectionnez une chambre</option>
+                  <option>101 - Simple</option>
+                  <option>102 - Double</option>
+                  <option>201 - Suite</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Statut</label>
+                <select class="form-select">
+                  <option>Confirmée</option>
+                  <option>En attente</option>
+                  <option>Annulée</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" rows="2" placeholder="Notes supplémentaires"></textarea>
+              </div>
+              <div class="text-end">
+                <a href="/hotel/rooms" class="btn btn-default">Annuler</a>
+                <button type="submit" class="btn btn-primary ms-2">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END #content -->
+
+}
+}
