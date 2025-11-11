@@ -10,69 +10,430 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 @component.Base(vm.Title, td) {
 
 <!-- BEGIN #content -->
-  <div id="content" class="app-content">
-    <ul class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">HÔTEL</a></li>
-      <li class="breadcrumb-item"><a href="hotel_rooms.html">Chambres</a></li>
-      <li class="breadcrumb-item active">Nouvelle Réservation</li>
-    </ul>
-    <h1 class="page-header mb-4">Nouvelle Réservation</h1>
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card">
-          <div class="card-body">
-            <form>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Nom du client</label>
-                  <input type="text" class="form-control" placeholder="Nom complet" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Téléphone</label>
-                  <input type="text" class="form-control" placeholder="Numéro de téléphone" required>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Date d'arrivée</label>
-                  <input type="date" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Date de départ</label>
-                  <input type="date" class="form-control" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Chambre</label>
-                <select class="form-select" required>
-                  <option value="">Sélectionnez une chambre</option>
-                  <option>101 - Simple</option>
-                  <option>102 - Double</option>
-                  <option>201 - Suite</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Statut</label>
-                <select class="form-select">
-                  <option>Confirmée</option>
-                  <option>En attente</option>
-                  <option>Annulée</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Notes</label>
-                <textarea class="form-control" rows="2" placeholder="Notes supplémentaires"></textarea>
-              </div>
-              <div class="text-end">
-                <a href="/hotel/rooms" class="btn btn-default">Annuler</a>
-                <button type="submit" class="btn btn-primary ms-2">Enregistrer</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div id="content" class="app-content p-1 ps-xl-4 pe-xl-4 pt-xl-3 pb-xl-3">
+	<!-- BEGIN pos -->
+	<div class="pos card" id="posReservation">
+		<div class="pos-container card-body">
+			<!-- BEGIN pos-menu (left categories) -->
+			<div class="pos-menu">
+				<div class="logo">
+					<a href="javascript:;">
+						<div class="logo-img"><i class="bi bi-house-door" style="font-size: 2rem;"></i></div>
+						<div class="logo-text">Reservations</div>
+					</a>
+				</div>
+				<div class="nav-container">
+					<div data-scrollbar="true" data-height="100%" data-skip-mobile="true">
+						<ul class="nav nav-tabs">
+							<li class="nav-item">
+								<a class="nav-link active" href="#" data-filter="all">
+									<div class="card">
+										<div class="card-body text-center"><i class="fa fa-fw fa-layer-group"></i> All</div>
+										<div class="card-arrow">
+											<div class="card-arrow-top-left"></div>
+											<div class="card-arrow-top-right"></div>
+											<div class="card-arrow-bottom-left"></div>
+											<div class="card-arrow-bottom-right"></div>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-filter="room">
+									<div class="card">
+										<div class="card-body text-center"><i class="fa fa-fw fa-bed"></i> Room</div>
+										<div class="card-arrow">
+											<div class="card-arrow-top-left"></div>
+											<div class="card-arrow-top-right"></div>
+											<div class="card-arrow-bottom-left"></div>
+											<div class="card-arrow-bottom-right"></div>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-filter="conference">
+									<div class="card">
+										<div class="card-body text-center"><i class="fa fa-fw fa-users"></i> Conference Room</div>
+										<div class="card-arrow">
+											<div class="card-arrow-top-left"></div>
+											<div class="card-arrow-top-right"></div>
+											<div class="card-arrow-bottom-left"></div>
+											<div class="card-arrow-bottom-right"></div>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-filter="beach">
+									<div class="card">
+										<div class="card-body text-center"><i class="fa fa-fw fa-umbrella-beach"></i> Beach</div>
+										<div class="card-arrow">
+											<div class="card-arrow-top-left"></div>
+											<div class="card-arrow-top-right"></div>
+											<div class="card-arrow-bottom-left"></div>
+											<div class="card-arrow-bottom-right"></div>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- END pos-menu -->
+
+			<!-- BEGIN pos-content (center cards) -->
+			<div class="pos-content">
+				<div class="pos-content-container h-100 p-4" data-scrollbar="true" data-height="100%">
+					<div class="row gx-5 gy-5">
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="room">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-1.jpg)"></div>
+										<div class="info">
+											<div class="title">Sea View Room 101</div>
+											<div class="desc">1 Queen bed, balcony, Wifi</div>
+											<div class="price">$89.00 / night</div>
+										</div>
+									</a>
+									<div class="p-2">
+										<a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a>
+									</div>
+								</div>
+								<div class="card-arrow">
+									<div class="card-arrow-top-left"></div>
+									<div class="card-arrow-top-right"></div>
+									<div class="card-arrow-bottom-left"></div>
+									<div class="card-arrow-bottom-right"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="conference">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-10.jpg)"></div>
+										<div class="info">
+											<div class="title">Conference Room A</div>
+											<div class="desc">Projector, seats 20, A/C</div>
+											<div class="price">$150.00 / day</div>
+										</div>
+									</a>
+									<div class="p-2">
+										<a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a>
+									</div>
+								</div>
+								<div class="card-arrow">
+									<div class="card-arrow-top-left"></div>
+									<div class="card-arrow-top-right"></div>
+									<div class="card-arrow-bottom-left"></div>
+									<div class="card-arrow-bottom-right"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="beach">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-9.jpg)"></div>
+										<div class="info">
+											<div class="title">Beach Cabana</div>
+											<div class="desc">Shade, 4 seats, ocean front</div>
+											<div class="price">$49.00 / day</div>
+										</div>
+									</a>
+									<div class="p-2">
+										<a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a>
+									</div>
+								</div>
+								<div class="card-arrow">
+									<div class="card-arrow-top-left"></div>
+									<div class="card-arrow-top-right"></div>
+									<div class="card-arrow-bottom-left"></div>
+									<div class="card-arrow-bottom-right"></div>
+								</div>
+							</div>
+						</div>
+						<!-- Additional rooms to make 10 cards -->
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="room">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-2.jpg)"></div>
+										<div class="info">
+											<div class="title">Garden Room 102</div>
+											<div class="desc">1 King bed, garden view, Wifi</div>
+											<div class="price">$95.00 / night</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="room">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-3.jpg)"></div>
+										<div class="info">
+											<div class="title">Deluxe Room 201</div>
+											<div class="desc">2 Twin beds, city view</div>
+											<div class="price">$79.00 / night</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="conference">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-4.jpg)"></div>
+										<div class="info">
+											<div class="title">Board Room B</div>
+											<div class="desc">Seats 12, smart screen</div>
+											<div class="price">$120.00 / day</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="beach">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-6.jpg)"></div>
+										<div class="info">
+											<div class="title">Beach Tent</div>
+											<div class="desc">2 chairs, cooler included</div>
+											<div class="price">$39.00 / day</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="room">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-7.jpg)"></div>
+										<div class="info">
+											<div class="title">Studio 305</div>
+											<div class="desc">Kitchenette, sofa bed</div>
+											<div class="price">$70.00 / night</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="room">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-8.jpg)"></div>
+										<div class="info">
+											<div class="title">Family Room</div>
+											<div class="desc">1 King + 2 Twins, breakfast</div>
+											<div class="price">$110.00 / night</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="conference">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-11.jpg)"></div>
+										<div class="info">
+											<div class="title">Conference Hall C</div>
+											<div class="desc">Stage, sound system</div>
+											<div class="price">$220.00 / day</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4" data-type="beach">
+							<div class="card h-100">
+								<div class="card-body h-100 p-1">
+									<a href="#" class="pos-product" data-bs-toggle="modal" data-bs-target="#roomModal1">
+										<div class="img" style="background-image: url(/public/img/product-12.jpg)"></div>
+										<div class="info">
+											<div class="title">Beach Lounge</div>
+											<div class="desc">Sunbeds, towels included</div>
+											<div class="price">$59.00 / day</div>
+										</div>
+									</a>
+									<div class="p-2"><a href="#" class="btn btn-outline-theme w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#bookModal">Book Now</a></div>
+								</div>
+								<div class="card-arrow"><div class="card-arrow-top-left"></div><div class="card-arrow-top-right"></div><div class="card-arrow-bottom-left"></div><div class="card-arrow-bottom-right"></div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END pos-content -->
+
+			<!-- BEGIN pos-sidebar (right reserved list) -->
+			<div class="pos-sidebar" id="reservation-sidebar">
+				<div class="h-100 d-flex flex-column p-0">
+					<div class="pos-sidebar-header">
+						<div class="icon"><img src="/public/img/pos/icon-table-black.svg" class="invert-dark" alt=""></div>
+						<div class="title">Reservations</div>
+						<div class="order">Date: <b>Today</b></div>
+					</div>
+					<div class="pos-sidebar-nav">
+						<ul class="nav nav-tabs nav-fill">
+							<li class="nav-item">
+								<a class="nav-link active" href="#" data-bs-toggle="tab" data-bs-target="#currentTab">Current</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#historyTab">History</a>
+							</li>
+						</ul>
+					</div>
+					<div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
+						<div class="tab-pane fade h-100 show active" id="currentTab">
+							<div class="pos-order">
+								<div class="pos-order-product">
+									<div class="img" style="background-image: url(/public/img/product-1.jpg)"></div>
+									<div class="flex-1">
+										<div class="h6 mb-1">Room 101</div>
+										<div class="small">$89.00</div>
+										<div class="small mb-2">- 2 nights</div>
+									</div>
+								</div>
+								<div class="pos-order-price">
+									$178.00
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade h-100" id="historyTab">
+							<div class="h-100 d-flex align-items-center justify-content-center text-center p-20">
+								<div>
+									<div class="mb-3 mt-n5"><i class="bi bi-clock text-gray-300 display-5"></i></div>
+									<h5>No reservation history</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="pos-sidebar-footer">
+						<div class="d-flex align-items-center mb-2">
+							<div>Total</div>
+							<div class="flex-1 text-end h4 mb-0">$178.00</div>
+						</div>
+						<div class="mt-3">
+							<div class="btn-group d-flex">
+								<a href="#" class="btn btn-outline-default rounded-0 w-80px">
+									<i class="bi bi-x-circle fa-lg"></i><br>
+									<span class="small">Cancel</span>
+								</a>
+								<a href="#" class="btn btn-outline-theme rounded-0 w-150px">
+									<i class="bi bi-send-check fa-lg"></i><br>
+									<span class="small">Confirm</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END pos-sidebar -->
+		</div>
+		<div class="card-arrow">
+			<div class="card-arrow-top-left"></div>
+			<div class="card-arrow-top-right"></div>
+			<div class="card-arrow-bottom-left"></div>
+			<div class="card-arrow-bottom-right"></div>
+		</div>
+	</div>
+	<!-- END pos -->
+
+	<!-- Room details modal (gallery placeholder) -->
+	<div class="modal fade" id="roomModal1" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content border-0">
+				<div class="card">
+					<div class="card-body p-0">
+						<a href="#" data-bs-dismiss="modal" class="btn-close position-absolute top-0 end-0 m-4"></a>
+						<div class="row g-0">
+							<div class="col-md-6 p-2">
+								<div class="row g-2">
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-1.jpg); height: 180px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-2.jpg); height: 180px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-3.jpg); height: 180px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-4.jpg); height: 180px;"></div></div>
+								</div>
+							</div>
+							<div class="col-md-6 p-3">
+								<div class="h4 mb-2">Sea View Room 101</div>
+								<div class="text-inverse text-opacity-50 mb-2">1 Queen bed, balcony, Wifi</div>
+								<div class="h5 mb-3">$89.00 / night</div>
+								<a href="#" class="btn btn-theme"><i class="bi bi-calendar-check me-2"></i>Book Now</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Book now modal (simple placeholder) -->
+	<div class="modal fade" id="bookModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Book Room</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row g-2">
+						<div class="col-md-6">
+							<label class="form-label small mb-1">Check in</label>
+							<input type="date" class="form-control form-control-sm">
+						</div>
+						<div class="col-md-6">
+							<label class="form-label small mb-1">Check out</label>
+							<input type="date" class="form-control form-control-sm">
+						</div>
+						<div class="col-md-6">
+							<label class="form-label small mb-1">Adult</label>
+							<input type="number" class="form-control form-control-sm" value="2" min="1">
+						</div>
+						<div class="col-md-6">
+							<label class="form-label small mb-1">Child</label>
+							<input type="number" class="form-control form-control-sm" value="0" min="0">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-success">Reserve</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- END #content -->
 
 }
