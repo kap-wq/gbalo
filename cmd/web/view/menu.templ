@@ -316,9 +316,9 @@ templ Menu(td *render.TemplateData, i interface{}) {
             <!-- Corps du modal -->
             <div class="modal-body">
                 <!-- Zone Recherche -->
-                <div class="mb-3">
+                <fieldset class="border rounded p-3 mb-3">
+                    <legend class="float-none w-auto px-2 mb-2 small">Recherche</legend>
                     <div class="row g-2 align-items-center">
-                        <div class="col-auto"><strong>Recherche</strong></div>
                         <div class="col">
                             <label class="form-label small mb-1">Code :</label>
                             <input type="text" class="form-control form-control-sm" placeholder="">
@@ -329,7 +329,9 @@ templ Menu(td *render.TemplateData, i interface{}) {
                         </div>
                         <div class="col">
                             <label class="form-label small mb-1">Catégorie :</label>
-                            <input type="text" class="form-control form-control-sm" value="WATER" readonly>
+                            <select class="form-select form-select-sm">
+                                <option>Juices & Smoothies</option>
+                            </select>
                         </div>
                         <div class="col">
                             <label class="form-label small mb-1">Sous-Catégorie :</label>
@@ -338,7 +340,7 @@ templ Menu(td *render.TemplateData, i interface{}) {
                             </select>
                         </div>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- Tableau vide -->
                 <div class="table-responsive mb-4" style="height: 200px;">
@@ -372,20 +374,23 @@ templ Menu(td *render.TemplateData, i interface{}) {
                         </div>
                         <div class="col">
                             <label class="form-label mb-1"><strong>Nouvelle étiquette</strong></label>
-                            <input type="text" class="form-control form-control-sm" value="WATER">
+                            <select class="form-select form-select-sm">
+                                <option>Juices & Smoothies</option>
+                            </select>
                         </div>
-                        <div class="col-auto d-flex align-items-end">
-                            <button type="button" class="btn btn-outline-secondary me-2">Discount</button>
-                        </div>
-                        <div class="col-auto d-flex align-items-end">
-                            <button type="button" class="btn btn-primary">Appliquer</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
 
             <!-- Pied du modal -->
             <div class="modal-footer">
+                <div class="col-auto d-flex align-items-center">
+                            <button type="button" class="btn btn-outline-secondary me-2">Discount</button>
+                        </div>
+                        <div class="col-auto d-flex align-items-center">
+                            <button type="button" class="btn btn-primary">Appliquer</button>
+                        </div>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>

@@ -14,6 +14,11 @@ templ Ajustement_stock(td *render.TemplateData, i interface{}) {
 				</ol>
 				<h1 class="page-header mb-0">Gestion ajustement_stock</h1>
 			</div>
+			<div class="ms-auto">
+        <a href="#" class="btn btn-outline-theme" data-bs-toggle="modal" data-bs-target="#bulkEditModal">
+            <i class="fa fa-plus-circle fa-fw me-1"></i> Add 
+        </a>
+    </div>
 		</div>
 		<div class="mb-sm-4 mb-3 d-sm-flex">
 			<div class="mt-sm-0 mt-2">
@@ -103,17 +108,11 @@ templ Ajustement_stock(td *render.TemplateData, i interface{}) {
 													</tr>
 												</thead>
 												<tbody>
-													<tr><td>AJ001</td><td>24/02/2019 00:00</td><td>0</td><td>mawuko</td></tr>
-													<tr><td>AJ002</td><td>24/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
-													<tr><td>AJ003</td><td>24/02/2019 00:00</td><td>3</td><td>mawuko</td></tr>
-													<tr><td>AJ005</td><td>25/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
-													<tr><td>AJ006</td><td>25/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
-													<tr><td>AJ007</td><td>26/02/2019 00:00</td><td>3</td><td>mawuko</td></tr>
-													<tr><td>AJ008</td><td>01/03/2019 00:00</td><td>7</td><td>mawuko</td></tr>
-													<tr><td>AJ009</td><td>01/03/2019 00:00</td><td>2</td><td>mawuko</td></tr>
-													<tr><td>AJ010</td><td>01/03/2019 00:00</td><td>2</td><td>mawuko</td></tr>
-													<tr><td>AJ011</td><td>01/03/2019 00:00</td><td>0</td><td>mawuko</td></tr>
-													<tr><td>AJ012</td><td>05/08/2019 00:00</td><td>0</td><td>mawuko</td></tr>
+													<tr data-bs-toggle="modal" data-bs-target="#bulkEditModal"><td>AJ001</td><td>24/02/2019 00:00</td><td>0</td><td>mawuko</td></tr>
+													<tr data-bs-toggle="modal" data-bs-target="#bulkEditModal"><td>AJ002</td><td>24/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
+													<tr data-bs-toggle="modal" data-bs-target="#bulkEditModal"><td>AJ003</td><td>24/02/2019 00:00</td><td>3</td><td>mawuko</td></tr>
+													<tr data-bs-toggle="modal" data-bs-target="#bulkEditModal"><td>AJ005</td><td>25/02/2019 00:00</td><td>1</td><td>mawuko</td></tr>
+													
 												</tbody>
 											</table>
 										</div>
@@ -127,10 +126,44 @@ templ Ajustement_stock(td *render.TemplateData, i interface{}) {
 								</div>
 								<!-- Section droite : Détails de l'élément sélectionné -->
 								<div class="file-manager-content w-50 d-flex flex-column">
+									<div class="d-flex justify-content-between align-items-center mb-3">
+										<div class="d-flex align-items-center gap-3">
+									<div class="dropdown">
+										<a href="#" class="text-inverse text-opacity-75 text-decoration-none d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown">
+											<i class="fa fa-folder-open fa-fw me-1 text-theme"></i> File
+										</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">
+												<i class="fa fa-download fa-fw me-1 text-theme"></i> Export
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="fa fa-upload fa-fw me-1 text-theme"></i> Import
+											</a>
+										</div>
+									</div>
+									<a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-print fa-fw me-1 text-theme"></i> Print</a>
+									<a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-tools fa-fw me-1 text-theme"></i> Adjust Stock</a>
+									<div class="d-flex align-items-center gap-2">
+										<label class="form-label small mb-0">Reorder</label>
+										<select class="form-select form-select-sm">
+											<option value="">Select option</option>
+											<option value="low">Low stock</option>
+											<option value="high">High stock</option>
+										</select>
+									</div>
+								</div>
+										<div class="d-flex align-items-center gap-2">
+											<label class="form-label small mb-0">From</label>
+											<input type="date" class="form-control form-control-sm">
+											<label class="form-label small mb-0">To</label>
+											<input type="date" class="form-control form-control-sm">
+										</div>
+									</div>
 									<!-- Section supérieure : Fieldsets à gauche et Listview à droite -->
 									<div class="d-flex gap-3 mb-3">
+									
 										<!-- Colonne gauche : Fieldsets -->
-										<div class="flex-grow-1 d-flex flex-column gap-3">
+										<div clList Viass="flex-grow-1 d-flex flex-column gap-3">
 											<!-- Fieldset Selected item -->
 											<fieldset class="border rounded p-3">
 												<legend class="float-none w-auto px-2 mb-2 small">Selected item</legend>
@@ -259,5 +292,25 @@ templ Ajustement_stock(td *render.TemplateData, i interface{}) {
 				</div>
 			</div>
 		</div>
+
+		    <!-- Modal Modification en Gros (Bulk Edit) -->
+<div class="modal fade" id="bulkEditModal" tabindex="-1" aria-labelledby="bulkEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- En-tête -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulkEditModalLabel">Modification en Gros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            
+
+            <!-- Pied du modal -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 	}
 }
