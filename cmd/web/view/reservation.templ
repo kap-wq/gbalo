@@ -608,13 +608,13 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 										</div>
 									</div>
 									<div class="col-md-3">
-										<div class="service-block bg-success text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+										<div class="service-block bg-success text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;" data-bs-toggle="modal" data-bs-target="#roomServiceModal">
 											<i class="fa fa-utensils fa-3x mb-3"></i>
 											<div class="fw-bold">Room Service</div>
 										</div>
 									</div>
 									<div class="col-md-3">
-										<div class="service-block bg-info text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+										<div class="service-block bg-info text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;" data-bs-toggle="modal" data-bs-target="#carRentalModal">
 											<i class="fa fa-car fa-3x mb-3"></i>
 											<div class="fw-bold">Car Rental</div>
 										</div>
@@ -761,6 +761,202 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 		</div>
 	</div>
 
+	<!-- Room Service Modal -->
+	<div class="modal fade" id="roomServiceModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content border-0">
+				<div class="card">
+					<div class="card-header bg-inverse bg-opacity-10 d-flex align-items-center justify-content-between">
+						<h5 class="modal-title mb-0"><i class="fa fa-utensils me-2 text-theme"></i>Room Service</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="card-body p-4">
+						<div class="row g-3 align-items-start">
+							<div class="col-lg-9">
+								<div class="row g-3">
+									<div class="col-md-4 col-lg-3">
+										<label class="form-label small mb-1">Type</label>
+										<select class="form-select form-select-sm">
+											<option value="">Select Type</option>
+											<option>Food</option>
+											<option>Drink</option>
+											<option>Laundry</option>
+										</select>
+									</div>
+									<div class="col-md-8 col-lg-5">
+										<label class="form-label small mb-1">Service</label>
+										<input type="text" class="form-control form-control-sm" placeholder="Service">
+									</div>
+									<div class="col-6 col-lg-2">
+										<label class="form-label small mb-1">Qty</label>
+										<input type="number" class="form-control form-control-sm" min="1" value="1">
+									</div>
+									<div class="col-6 col-lg-2">
+										<label class="form-label small mb-1">Cost</label>
+										<input type="number" class="form-control form-control-sm" min="0" step="0.01" value="0">
+									</div>
+									<div class="col-md-6 col-lg-4">
+										<label class="form-label small mb-1">Date</label>
+										<input type="date" class="form-control form-control-sm" value="2025-11-12">
+									</div>
+									<div class="col-md-6 col-lg-4">
+										<label class="form-label small mb-1">Time</label>
+										<input type="time" class="form-control form-control-sm" value="11:51">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 d-flex flex-column gap-2">
+								<button type="button" class="btn btn-success btn-sm w-100">
+									<i class="fa fa-plus me-1"></i>Add
+								</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm w-100">
+									<i class="fa fa-trash me-1"></i>Remove
+								</button>
+							</div>
+						</div>
+
+						<div class="table-responsive mt-4">
+							<table class="table table-bordered table-sm mb-0">
+								<thead style="background-color: #b90dff; color: #fff;">
+									<tr class="text-uppercase small">
+										<th>Type</th>
+										<th>Service</th>
+										<th class="text-center">Qty</th>
+										<th class="text-end">Cost</th>
+										<th>Date</th>
+										<th>Time</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="6" class="text-center text-muted py-4">No room service added yet</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse bg-opacity-5 border-top">
+						<div class="d-flex justify-content-end gap-2">
+							<button type="button" class="btn btn-outline-secondary btn-sm" id="roomServiceCancelBtn"><i class="fa fa-times me-1"></i>Cancel</button>
+							<button type="button" class="btn btn-success btn-sm"><i class="fa fa-check me-1"></i>Done</button>
+						</div>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Car Rental Modal -->
+	<div class="modal fade" id="carRentalModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content border-0">
+				<div class="card">
+					<div class="card-header bg-inverse bg-opacity-10 d-flex align-items-center justify-content-between">
+						<h5 class="modal-title mb-0"><i class="fa fa-car me-2 text-theme"></i>Car Rental</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="card-body p-4">
+						<div class="row g-3 align-items-start">
+							<div class="col-lg-9">
+								<div class="row g-3">
+									<div class="col-md-6">
+										<label class="form-label small mb-1">Vehicle</label>
+										<input type="text" class="form-control form-control-sm" placeholder="Vehicle">
+									</div>
+									<div class="col-6 col-md-3">
+										<label class="form-label small mb-1">Qty</label>
+										<input type="number" class="form-control form-control-sm" min="1" value="1">
+									</div>
+									<div class="col-6 col-md-3">
+										<label class="form-label small mb-1">Cost</label>
+										<input type="number" class="form-control form-control-sm" min="0" step="0.01" value="0">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label small mb-1">From Date</label>
+										<input type="date" class="form-control form-control-sm" value="2025-11-12">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label small mb-1">To Date</label>
+										<input type="date" class="form-control form-control-sm" value="2025-11-12">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label small mb-1">From Time</label>
+										<input type="time" class="form-control form-control-sm" value="11:52">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label small mb-1">To Time</label>
+										<input type="time" class="form-control form-control-sm" value="12:52">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label small mb-1">Driver</label>
+										<select class="form-select form-select-sm">
+											<option value="">Select Driver</option>
+											<option>Driver 1</option>
+											<option>Driver 2</option>
+										</select>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label small mb-1">Car Plate</label>
+										<input type="text" class="form-control form-control-sm" placeholder="Car Plate">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 d-flex flex-column gap-2">
+								<button type="button" class="btn btn-success btn-sm w-100">
+									<i class="fa fa-plus me-1"></i>Add
+								</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm w-100">
+									<i class="fa fa-trash me-1"></i>Remove
+								</button>
+							</div>
+						</div>
+
+						<div class="table-responsive mt-4">
+							<table class="table table-bordered table-sm mb-0">
+								<thead style="background-color: #b90dff; color: #fff;">
+									<tr class="text-uppercase small">
+										<th>Vehicle</th>
+										<th class="text-center">Qty</th>
+										<th class="text-end">Cost</th>
+										<th>From Date</th>
+										<th>From Time</th>
+										<th>To Date</th>
+										<th>To Time</th>
+										<th>Driver</th>
+										<th>Car Plate</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="9" class="text-center text-muted py-4">No car rental added yet</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse bg-opacity-5 border-top">
+						<div class="d-flex justify-content-end gap-2">
+							<button type="button" class="btn btn-outline-secondary btn-sm" id="carRentalCancelBtn"><i class="fa fa-times me-1"></i>Cancel</button>
+							<button type="button" class="btn btn-success btn-sm"><i class="fa fa-check me-1"></i>Done</button>
+						</div>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<style>
 		.wizard-step {
 			display: flex;
@@ -870,37 +1066,44 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 				// Add your completion logic here
 			});
 
-			// Handle Pickup modal Cancel button - return to wizard step 2
-			let returningFromPickup = false;
-			
-			document.getElementById('pickupCancelBtn').addEventListener('click', function() {
-				returningFromPickup = true;
-				// Close pickup modal
-				const pickupModal = bootstrap.Modal.getInstance(document.getElementById('pickupModal'));
-				if (pickupModal) {
-					pickupModal.hide();
+			// Handle service modals so Cancel brings user back to Step 2
+			let returningFromServiceModal = null;
+			const wizardModalEl = document.getElementById('confirmReservationModal');
+			const serviceModals = [
+				{ modalId: 'pickupModal', cancelBtnId: 'pickupCancelBtn' },
+				{ modalId: 'roomServiceModal', cancelBtnId: 'roomServiceCancelBtn' },
+				{ modalId: 'carRentalModal', cancelBtnId: 'carRentalCancelBtn' }
+			];
+
+			serviceModals.forEach(({ modalId, cancelBtnId }) => {
+				const modalEl = document.getElementById(modalId);
+				const cancelBtn = document.getElementById(cancelBtnId);
+				if (!modalEl || !cancelBtn) {
+					return;
 				}
+
+				cancelBtn.addEventListener('click', function() {
+					returningFromServiceModal = modalId;
+					const modalInstance = bootstrap.Modal.getInstance(modalEl) || bootstrap.Modal.getOrCreateInstance(modalEl);
+					modalInstance.hide();
+				});
+
+				modalEl.addEventListener('hidden.bs.modal', function() {
+					if (returningFromServiceModal === modalId) {
+						currentStep = 2;
+						updateWizard();
+						const wizardInstance = bootstrap.Modal.getInstance(wizardModalEl) || new bootstrap.Modal(wizardModalEl);
+						wizardInstance.show();
+						setTimeout(function() {
+							returningFromServiceModal = null;
+						}, 100);
+					}
+				});
 			});
 
-			// When pickup modal is closed, open wizard at step 2
-			document.getElementById('pickupModal').addEventListener('hidden.bs.modal', function() {
-				if (returningFromPickup) {
-					// Set step to 2 before opening wizard modal
-					currentStep = 2;
-					updateWizard();
-					// Open wizard modal
-					const wizardModal = new bootstrap.Modal(document.getElementById('confirmReservationModal'));
-					wizardModal.show();
-					// Reset flag after a short delay to ensure modal is opened
-					setTimeout(function() {
-						returningFromPickup = false;
-					}, 100);
-				}
-			});
-
-			// Reset wizard when modal is opened (but not when returning from pickup)
+			// Reset wizard when modal is opened (but not when returning from service modals)
 			document.getElementById('confirmReservationModal').addEventListener('show.bs.modal', function() {
-				if (!returningFromPickup) {
+				if (!returningFromServiceModal) {
 					currentStep = 1;
 					updateWizard();
 				}
