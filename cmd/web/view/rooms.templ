@@ -9,148 +9,434 @@ templ Rooms(td *render.TemplateData, i interface{}) {
 {{vm := i.(*viewmodel.IndexViewModel)}}
 @component.Base(vm.Title, td) {
 
-<!-- BEGIN #app -->
-<div id="app" class="app app-content-full-height app-without-sidebar app-without-header">
-  <!-- BEGIN #content -->
-  <div id="content" class="app-content p-1 ps-xl-4 pe-xl-4 pt-xl-3 pb-xl-3">
-  <div class="pos pos-vertical card" id="hotel_rooms">
-      <div class="pos-container card-body">
-        <div class="pos-header d-flex align-items-center">
-          <!-- Back button -->
-          <div class="me-2">
-            <a href="javascript:history.back()" class="btn btn-default btn-sm">
-              <i class="fa fa-arrow-left me-1"></i> Retour
-            </a>
-          </div>
+	<div class="d-flex align-items-center mb-3">
+		<div>
+			<ul class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">PAGES</a></li>
+				<li class="breadcrumb-item active">ROOMS</li>
+			</ul>
+			<h1 class="page-header mb-0">Gestion des chambres</h1>
+		</div>
+	</div>
+	<div class="mb-sm-4 mb-3 d-sm-flex">
+		<div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
+		<div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
+		<div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
+			<a href="#" data-bs-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#"><i class="far fa-lg fa-fw me-2 fa-edit fa-fw me-1 text-theme"></i> Action 1</a>
+				<a class="dropdown-item" href="#"><i class="far fa-lg fa-fw me-2 fa-trash-alt fa-fw me-1 text-theme"></i> Action 2</a>
+			</div>
+		</div>
+		<div class="ms-sm-auto mt-sm-0 mt-2">
+			<a href="#" class="btn btn-outline-theme" data-bs-toggle="modal" data-bs-target="#roomModal">
+				<i class="fa fa-plus-circle fa-fw me-1"></i> Add Room
+			</a>
+		</div>
+	</div>
+	
+	<div class="card">
+		<div class="card-header">
+			<h4>Filtres</h4>
+		</div>
+		<div class="card-body">
+			<fieldset class="border rounded p-3">
+				<legend class="float-none w-auto px-2 small mb-0">Status</legend>
+				<div class="d-flex flex-wrap gap-3">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="roomStatus" id="statusAll" value="All" checked>
+						<label class="form-check-label" for="statusAll">All</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="roomStatus" id="statusFree" value="Free">
+						<label class="form-check-label" for="statusFree">Free</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="roomStatus" id="statusBooked" value="Booked">
+						<label class="form-check-label" for="statusBooked">Booked</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="roomStatus" id="statusReserved" value="Reserved">
+						<label class="form-check-label" for="statusReserved">Reserved</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="roomStatus" id="statusOut" value="OutOfService">
+						<label class="form-check-label" for="statusOut">Out of Service</label>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-hover text-nowrap">
+					<thead>
+						<tr>
+							<th class="pt-0 pb-2">Booking ID</th>
+							<th class="pt-0 pb-2">Room ID</th>
+							<th class="pt-0 pb-2">Room Description</th>
+							<th class="pt-0 pb-2">Type</th>
+							<th class="pt-0 pb-2">Size</th>
+							<th class="pt-0 pb-2">No Adult</th>
+							<th class="pt-0 pb-2">No Child</th>
+							<th class="pt-0 pb-2">Location</th>
+							<th class="pt-0 pb-2">Regular Cost</th>
+							<th class="pt-0 pb-2">Check in Date</th>
+							<th class="pt-0 pb-2">Check in Time</th>
+							<th class="pt-0 pb-2">Check out Date</th>
+							<th class="pt-0 pb-2">Check out Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>BK0001</td>
+							<td>RM101</td>
+							<td>Sea view single</td>
+							<td>Single</td>
+							<td>20 m²</td>
+							<td>1</td>
+							<td>0</td>
+							<td>1st Floor</td>
+							<td>35 €</td>
+							<td>2025-11-11</td>
+							<td>12:00</td>
+							<td>2025-11-12</td>
+							<td>11:00</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="card-arrow">
+			<div class="card-arrow-top-left"></div>
+			<div class="card-arrow-top-right"></div>
+			<div class="card-arrow-bottom-left"></div>
+			<div class="card-arrow-bottom-right"></div>
+		</div>
+	</div>
 
-          <div class="logo">
-            <a href="hotel_rooms.html">
-              <div class="logo-img"><i class="bi bi-house-door" style="font-size: 1.5rem;"></i></div>
-              <div class="logo-text">Hôtel Piscill</div>
-            </a>
-          </div>
+	<!-- Add Room Modal -->
+	<div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="roomModalLabel"><i class="fa fa-bed me-2"></i>Add Room</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row g-3">
+						<div class="col-12">
+							<fieldset class="border rounded p-3">
+								<legend class="float-none w-auto px-2 small mb-0">General</legend>
+								<div class="row g-3">
+									<div class="col-md-3">
+										<label class="form-label">Code</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+									<div class="col-md-3">
+										<label class="form-label">ID</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+									<div class="col-md-3">
+										<label class="form-label">Key Code</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+									<div class="col-md-3">
+										<label class="form-label">Type</label>
+										<select class="form-select form-select-sm">
+											<option>Inside</option>
+											<option>Outside</option>
+										</select>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Description</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+								</div>
+							</fieldset>
+						</div>
 
-          <div class="ms-auto">
-            <a href="/hotel/reservation" class="btn btn-outline-theme"><i class="fa fa-plus-circle me-1"></i> Nouvelle réservation</a>
-          </div>
-        </div>
-        <div class="pos-content">
-          <div class="pos-content-container p-3" data-scrollbar="true" data-height="100%">
-            <div class="row gx-3">
-              <div class="col-xl-3 col-lg-4 col-md-6 pb-3">
-                <div class="pos-checkout-table available card">
-                  <a href="#" class="pos-checkout-table-container">
-                    <div class="pos-checkout-table-header">
-                      <div class="status"><i class="bi bi-circle-fill text-success"></i></div>
-                      <div class="fw-bold">Chambre</div>
-                      <div class="fw-bold display-6">101</div>
-                      <div class="text-inverse text-opacity-50">Simple</div>
-                    </div>
-                    <div class="pos-checkout-table-info small">
-                      <div class="row">
-                        <div class="col-6 d-flex justify-content-center">
-                          <div class="w-20px"><i class="bi bi-currency-euro text-inverse text-opacity-50"></i></div>
-                          <div class="w-60px">35 €</div>
-                        </div>
-                        <div class="col-6 d-flex justify-content-center">
-                          <div class="w-20px"><i class="bi bi-person text-inverse text-opacity-50"></i></div>
-                          <div class="w-60px">1 pers.</div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                          <a href="hotel_reservation_new.html" class="btn btn-xs btn-primary mt-2">Réserver</a>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <div class="card-arrow">
-                    <div class="card-arrow-top-left"></div>
-                    <div class="card-arrow-top-right"></div>
-                    <div class="card-arrow-bottom-left"></div>
-                    <div class="card-arrow-bottom-right"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-lg-4 col-md-6 pb-3">
-                <div class="pos-checkout-table in-use card">
-                  <a href="#" class="pos-checkout-table-container">
-                    <div class="pos-checkout-table-header">
-                      <div class="status"><i class="bi bi-circle-fill text-warning"></i></div>
-                      <div class="fw-bold">Chambre</div>
-                      <div class="fw-bold display-6">102</div>
-                      <div class="text-inverse text-opacity-50">Double</div>
-                    </div>
-                    <div class="pos-checkout-table-info small">
-                      <div class="row">
-                        <div class="col-6 d-flex justify-content-center">
-                          <div class="w-20px"><i class="bi bi-currency-euro text-inverse text-opacity-50"></i></div>
-                          <div class="w-60px">50 €</div>
-                        </div>
-                        <div class="col-6 d-flex justify-content-center">
-                          <div class="w-20px"><i class="bi bi-person text-inverse text-opacity-50"></i></div>
-                          <div class="w-60px">2 pers.</div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                          <a href="#" class="btn btn-xs btn-default mt-2 disabled">Occupée</a>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <div class="card-arrow">
-                    <div class="card-arrow-top-left"></div>
-                    <div class="card-arrow-top-right"></div>
-                    <div class="card-arrow-bottom-left"></div>
-                    <div class="card-arrow-bottom-right"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-lg-4 col-md-6 pb-3">
-                <div class="pos-checkout-table unavailable card">
-                  <a href="#" class="pos-checkout-table-container">
-                    <div class="pos-checkout-table-header">
-                      <div class="status"><i class="bi bi-circle-fill text-danger"></i></div>
-                      <div class="fw-bold">Chambre</div>
-                      <div class="fw-bold display-6">201</div>
-                      <div class="text-inverse text-opacity-50">Suite</div>
-                    </div>
-                    <div class="pos-checkout-table-info small">
-                      <div class="row">
-                        <div class="col-6 d-flex justify-content-center">
-                          <div class="w-20px"><i class="bi bi-currency-euro text-inverse text-opacity-50"></i></div>
-                          <div class="w-60px">90 €</div>
-                        </div>
-                        <div class="col-6 d-flex justify-content-center">
-                          <div class="w-20px"><i class="bi bi-person text-inverse text-opacity-50"></i></div>
-                          <div class="w-60px">4 pers.</div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                          <a href="#" class="btn btn-xs btn-default mt-2 disabled">Maintenance</a>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <div class="card-arrow">
-                    <div class="card-arrow-top-left"></div>
-                    <div class="card-arrow-top-right"></div>
-                    <div class="card-arrow-bottom-left"></div>
-                    <div class="card-arrow-bottom-right"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- END #content -->
-</div>
-<!-- END #app -->
+						<div class="col-md-6">
+							<fieldset class="border rounded p-3 h-100">
+								<legend class="float-none w-auto px-2 small mb-0">Geo</legend>
+								<div class="row g-3">
+									<div class="col-md-6">
+										<label class="form-label">Size</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Location</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+						<div class="col-md-6">
+							<fieldset class="border rounded p-3 h-100">
+								<legend class="float-none w-auto px-2 small mb-0">Cost</legend>
+								<div class="row g-3">
+									<div class="col-md-6">
+										<label class="form-label">Regular cost</label>
+										<input class="form-control form-control-sm" placeholder="">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Category</label>
+										<select class="form-select form-select-sm">
+											<option>Room</option>
+											<option>Suite</option>
+										</select>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<!-- Tabs: Accessory / Pictures -->
+					<ul class="nav nav-tabs small my-3">
+						<li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#room-accessory">Accessory</a></li>
+						<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#room-pictures">Pictures</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="room-accessory">
+							<div class="row g-3">
+								<div class="col-md-5">
+									<div class="border rounded p-2" style="min-height: 220px;">
+										<div class="small text-opacity-75 mb-2">Available</div>
+										<div class="list-group list-group-flush" id="available-accessories">
+											<a class="list-group-item list-group-item-action" draggable="true">AC 2H</a>
+											<a class="list-group-item list-group-item-action" draggable="true">Fan</a>
+											<a class="list-group-item list-group-item-action" draggable="true">TV 32"</a>
+											<a class="list-group-item list-group-item-action" draggable="true">Bed King Size</a>
+											<a class="list-group-item list-group-item-action" draggable="true">Bed Keen Size</a>
+											<a class="list-group-item list-group-item-action" draggable="true">AC 1.5HP</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
+									<button type="button" class="btn btn-outline-secondary btn-sm mb-2" id="moveToSelected"><i class="fa fa-arrow-right"></i></button>
+									<button type="button" class="btn btn-outline-secondary btn-sm" id="moveToAvailable"><i class="fa fa-arrow-left"></i></button>
+								</div>
+								<div class="col-md-5">
+									<div class="border rounded p-2" id="selected-accessories" style="min-height: 220px;">
+										<div class="small text-opacity-75 mb-2">Selected</div>
+										<div class="list-group list-group-flush">
+											<!-- Selected items will be added here via drag and drop -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="room-pictures">
+							<div class="row g-3">
+								<div class="col-md-12">
+									<div class="border rounded p-3 d-flex justify-content-center align-items-center" style="min-height: 220px;">
+										<div class="text-center text-muted">
+											<i class="fa fa-image fa-2x mb-2"></i>
+											<div>Drop images here or use upload</div>
+											<button type="button" class="btn btn-outline-default btn-sm mt-2">
+												<i class="fa fa-upload me-1"></i> Upload
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Ajout</button>
+					<button type="button" class="btn btn-success">Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		#available-accessories .list-group-item[draggable="true"],
+		#selected-accessories .list-group-item[draggable="true"] {
+			cursor: move;
+			user-select: none;
+			transition: background-color 0.2s, opacity 0.2s;
+		}
+		#available-accessories .list-group-item[draggable="true"]:hover,
+		#selected-accessories .list-group-item[draggable="true"]:hover {
+			background-color: #e9ecef;
+		}
+		#available-accessories .list-group-item[draggable="true"]:active,
+		#selected-accessories .list-group-item[draggable="true"]:active {
+			opacity: 0.5;
+		}
+		#available-accessories.drag-over,
+		#selected-accessories .list-group.drag-over {
+			background-color: #d1ecf1 !important;
+			border: 2px dashed #0c5460 !important;
+			border-radius: 4px;
+		}
+		.dragging {
+			opacity: 0.5;
+		}
+	</style>
+
+	<script>
+		(function() {
+			let draggedElement = null;
+			let draggedFromList = null;
+			let initialized = false;
+
+			function getSelectedList() {
+				const container = document.getElementById('selected-accessories');
+				return container.querySelector('.list-group');
+			}
+
+			function setupDragAndDrop() {
+				const availableList = document.getElementById('available-accessories');
+				const selectedContainer = document.getElementById('selected-accessories');
+				const selectedList = getSelectedList();
+				if (!availableList || !selectedList || !selectedContainer) return;
+
+				const draggableLists = [availableList, selectedList];
+				draggableLists.forEach(list => {
+					if (!list) return;
+
+					if (initialized) {
+						list.removeEventListener('dragstart', handleDragStartDelegate, true);
+						list.removeEventListener('dragend', handleDragEndDelegate, true);
+					}
+
+					list.addEventListener('dragstart', handleDragStartDelegate, true);
+					list.addEventListener('dragend', handleDragEndDelegate, true);
+				});
+
+				const droppableTargets = [availableList, selectedList, selectedContainer];
+				droppableTargets.forEach(target => {
+					if (!target) return;
+
+					if (initialized) {
+						target.removeEventListener('dragover', handleDragOver);
+						target.removeEventListener('drop', handleDrop);
+						target.removeEventListener('dragleave', handleDragLeave);
+					}
+
+					target.addEventListener('dragover', handleDragOver);
+					target.addEventListener('drop', handleDrop);
+					target.addEventListener('dragleave', handleDragLeave);
+				});
+
+				initialized = true;
+			}
+
+			function handleDragStartDelegate(e) {
+				if (e.target.hasAttribute('draggable') && e.target.getAttribute('draggable') === 'true') {
+					handleDragStart.call(e.target, e);
+				}
+			}
+
+			function handleDragEndDelegate(e) {
+				if (e.target.hasAttribute('draggable') && e.target.getAttribute('draggable') === 'true') {
+					handleDragEnd.call(e.target, e);
+				}
+			}
+
+			function handleDragStart(e) {
+				draggedElement = this;
+				draggedFromList = this.closest('.list-group') || this.parentElement;
+				this.classList.add('dragging');
+				e.dataTransfer.effectAllowed = 'move';
+				e.dataTransfer.setData('text/plain', this.textContent);
+			}
+
+			function handleDragEnd(e) {
+				this.classList.remove('dragging');
+				document.querySelectorAll('.drag-over').forEach(el => {
+					el.classList.remove('drag-over');
+				});
+				draggedElement = null;
+				draggedFromList = null;
+			}
+
+			function handleDragOver(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				e.dataTransfer.dropEffect = 'move';
+				this.classList.add('drag-over');
+				return false;
+			}
+
+			function handleDragLeave(e) {
+				// Only remove drag-over if we're leaving the list itself, not entering a child
+				if (!this.contains(e.relatedTarget)) {
+					this.classList.remove('drag-over');
+				}
+			}
+
+			function handleDrop(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				this.classList.remove('drag-over');
+
+				let dropTarget = this;
+
+				if (this.id === 'selected-accessories') {
+					dropTarget = getSelectedList();
+				}
+
+				if (draggedElement && draggedFromList && dropTarget && draggedFromList !== dropTarget) {
+					const text = draggedElement.textContent.trim();
+					draggedElement.remove();
+					
+					const newElement = document.createElement('a');
+					newElement.className = 'list-group-item list-group-item-action';
+					newElement.setAttribute('draggable', 'true');
+					newElement.textContent = text;
+					
+					dropTarget.appendChild(newElement);
+					// No need to reinitialize, event delegation handles new elements
+				}
+
+				return false;
+			}
+
+			// Button handlers
+			document.getElementById('moveToSelected').addEventListener('click', function() {
+				const availableList = document.getElementById('available-accessories');
+				const selected = availableList.querySelector('.list-group-item.active');
+				if (selected) {
+					const text = selected.textContent.trim();
+					selected.remove();
+					
+					const selectedList = getSelectedList();
+					const newElement = document.createElement('a');
+					newElement.className = 'list-group-item list-group-item-action';
+					newElement.setAttribute('draggable', 'true');
+					newElement.textContent = text;
+					selectedList.appendChild(newElement);
+					// Event delegation handles new elements automatically
+				}
+			});
+
+			document.getElementById('moveToAvailable').addEventListener('click', function() {
+				const selectedList = getSelectedList();
+				const selected = selectedList.querySelector('.list-group-item.active');
+				if (selected) {
+					const text = selected.textContent.trim();
+					selected.remove();
+					
+					const availableList = document.getElementById('available-accessories');
+					const newElement = document.createElement('a');
+					newElement.className = 'list-group-item list-group-item-action';
+					newElement.setAttribute('draggable', 'true');
+					newElement.textContent = text;
+					availableList.appendChild(newElement);
+					// Event delegation handles new elements automatically
+				}
+			});
+
+			// Initialize when modal is shown
+			document.getElementById('roomModal').addEventListener('shown.bs.modal', function() {
+				setTimeout(setupDragAndDrop, 100);
+			});
+		})();
+	</script>
 
 }
 }
