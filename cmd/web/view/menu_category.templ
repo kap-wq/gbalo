@@ -23,43 +23,46 @@ templ Menu_category(td *render.TemplateData, i interface{}) {
     </div>
 </div>
 <div class="mb-sm-4 mb-3 d-sm-flex">
-    <div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
-    <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
-    <div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
-        <a href="#" data-bs-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
-        <div class="dropdown-menu bg-white shadow">
-            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bulkEditModal">
-                <i class="far fa-lg fa-fw me-2 fa-edit text-theme"></i> Modification en masse
-            </a>
-            <a class="dropdown-item" href="/menu/action2">
-                <i class="far fa-lg fa-fw me-2 fa-trash-alt text-theme"></i> Supression en masse
-            </a>
+        <div class="mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-theme"></i> Import</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-inverse text-opacity-75 text-decoration-none"><i class="fa fa-print fa-fw me-1 text-theme"></i> Imprimer</a></div>
+        <div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
+            <a href="#" data-bs-toggle="dropdown" class="text-inverse text-opacity-75 text-decoration-none">More Actions</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bulkEditModal">
+                    <i class="far fa-lg fa-fw me-2 fa-edit fa-fw me-1 text-theme"></i> Modification en masse
+                </a>
+                <a class="dropdown-item" href="/menu/action2">
+                    <i class="far fa-lg fa-fw me-2 fa-trash-alt fa-fw me-1 text-theme"></i> Supression en masse
+                </a>
+            </div>
         </div>
     </div>
-</div>
 <div class="card">
     <div class="card-header">
         <h4>Catégorie</h4>
     </div>
     <div class="card-body">
         <form>
-            <div class="input-group mb-4">
-              <select class="form-select form-select-md w-5" id="categorie">
-					<option value="">---Tous les index---</option>
-					<option value="vetements">VA</option>
-					<option value="chaussures">ZT</option>
-					<option value="BD">BD</option>
-				</select>
-                <!-- Champ de recherche -->
-                <div class="flex-fill position-relative ms-2">
-                    <div class="input-group">
-                        <span class="input-group-text position-absolute top-50 start-0 translate-middle-y bg-transparent border-0 pe-0" style="z-index: 1020;">
-                            <i class="fa fa-search opacity-5"></i>
-                        </span>
-                        <input type="text" class="form-control ps-35px" placeholder="Search category">
-                    </div>
-                </div>
-            </div>
+            <fieldset class="file-manager-toolbar d-flex align-items-center justify-content-between mb-4 py-2 border rounded px-2">
+                <legend class="float-none w-auto px-2 mb-0 small">Filtres</legend>
+                <div class="input-group mb-4">
+							<select class="form-select form-select-md" style="max-width: 180px;" id="categorie">
+                        <option value="">---Tous les index---</option>
+                        <option value="vetements">VA</option>
+                        <option value="chaussures">ZT</option>
+                        <option value="BD">BD</option>
+                    </select>
+							<div class="flex-fill position-relative">
+								<div class="input-group">
+									<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 pe-0" style="z-index: 1020;">
+										<i class="fa fa-search opacity-5"></i>
+									</div>
+									<input type="text" class="form-control ps-35px" placeholder="Search products">
+								</div>
+							</div>
+						</div>
+            </fieldset>
         </form>
     </div>
     <div class="card-body">
