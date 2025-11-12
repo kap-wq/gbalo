@@ -10,7 +10,7 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 @component.Base(vm.Title, td) {
 
 <!-- BEGIN #content -->
-<div id="content" class="app-content p-1 ps-xl-4 pe-xl-4 pt-xl-3 pb-xl-3">
+<div class="d-flex align-items-center mb-3">
 	<!-- BEGIN pos -->
 	<div class="pos card" id="posReservation">
 		<div class="pos-container card-body">
@@ -54,7 +54,7 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 							<li class="nav-item">
 								<a class="nav-link" href="#" data-filter="conference">
 									<div class="card">
-										<div class="card-body text-center"><i class="fa fa-fw fa-users"></i> Conference Room</div>
+										<div class="card-body text-center d-flex flex-column align-items-center justify-content-center"><i class="fa fa-fw fa-users"></i> <span>Conference Room</span></div>
 										<div class="card-arrow">
 											<div class="card-arrow-top-left"></div>
 											<div class="card-arrow-top-right"></div>
@@ -306,7 +306,7 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 							<li class="nav-item">
 								<a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#historyTab">History</a>
 							</li>
-						</ul>
+    </ul>
 					</div>
 					<div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
 						<div class="tab-pane fade h-100 show active" id="currentTab">
@@ -344,7 +344,7 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 									<i class="bi bi-x-circle fa-lg"></i><br>
 									<span class="small">Cancel</span>
 								</a>
-								<a href="#" class="btn btn-outline-theme rounded-0 w-150px">
+								<a href="#" class="btn btn-outline-theme rounded-0 w-150px" data-bs-toggle="modal" data-bs-target="#confirmReservationModal">
 									<i class="bi bi-send-check fa-lg"></i><br>
 									<span class="small">Confirm</span>
 								</a>
@@ -366,25 +366,25 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 
 	<!-- Room details modal (gallery placeholder) -->
 	<div class="modal fade" id="roomModal1" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-xl">
+		<div class="modal-dialog modal-xl" style="max-width: 90%;">
 			<div class="modal-content border-0">
-				<div class="card">
+        <div class="card">
 					<div class="card-body p-0">
 						<a href="#" data-bs-dismiss="modal" class="btn-close position-absolute top-0 end-0 m-4"></a>
 						<div class="row g-0">
-							<div class="col-md-6 p-2">
+							<div class="col-md-9 p-3">
 								<div class="row g-2">
-									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-1.jpg); height: 180px;"></div></div>
-									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-2.jpg); height: 180px;"></div></div>
-									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-3.jpg); height: 180px;"></div></div>
-									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-4.jpg); height: 180px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-1.jpg); height: 320px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-2.jpg); height: 320px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-3.jpg); height: 320px;"></div></div>
+									<div class="col-6"><div class="img" style="background-image: url(/public/img/product-4.jpg); height: 320px;"></div></div>
 								</div>
 							</div>
-							<div class="col-md-6 p-3">
-								<div class="h4 mb-2">Sea View Room 101</div>
-								<div class="text-inverse text-opacity-50 mb-2">1 Queen bed, balcony, Wifi</div>
-								<div class="h5 mb-3">$89.00 / night</div>
-								<a href="#" class="btn btn-theme"><i class="bi bi-calendar-check me-2"></i>Book Now</a>
+							<div class="col-md-3 p-2">
+								<div class="h5 mb-1">Sea View Room 101</div>
+								<div class="text-inverse text-opacity-50 small mb-2">1 Queen bed, balcony, Wifi</div>
+								<div class="h6 mb-2">$89.00 / night</div>
+								<a href="#" class="btn btn-theme btn-sm w-100"><i class="bi bi-calendar-check me-1"></i>Book Now</a>
 							</div>
 						</div>
 					</div>
@@ -408,32 +408,505 @@ templ Reservation(td *render.TemplateData, i interface{}) {
 				</div>
 				<div class="modal-body">
 					<div class="row g-2">
-						<div class="col-md-6">
+                <div class="col-md-6">
 							<label class="form-label small mb-1">Check in</label>
 							<input type="date" class="form-control form-control-sm">
-						</div>
-						<div class="col-md-6">
+                </div>
+                <div class="col-md-6">
 							<label class="form-label small mb-1">Check out</label>
 							<input type="date" class="form-control form-control-sm">
-						</div>
-						<div class="col-md-6">
+              </div>
+                <div class="col-md-6">
 							<label class="form-label small mb-1">Adult</label>
 							<input type="number" class="form-control form-control-sm" value="2" min="1">
-						</div>
-						<div class="col-md-6">
+                </div>
+                <div class="col-md-6">
 							<label class="form-label small mb-1">Child</label>
 							<input type="number" class="form-control form-control-sm" value="0" min="0">
-						</div>
-					</div>
-				</div>
+                </div>
+              </div>
+              </div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-success">Reserve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<!-- Confirm Reservation Wizard Modal -->
+	<div class="modal fade" id="confirmReservationModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header bg-inverse bg-opacity-10">
+					<h5 class="modal-title mb-0"><i class="fa fa-check-circle me-2 text-theme"></i>Confirm Reservation</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body p-0">
+					<!-- Wizard Steps Indicator -->
+					<div class="card border-0 rounded-0">
+						<div class="card-body p-3 bg-inverse bg-opacity-5">
+							<div class="d-flex align-items-center justify-content-between">
+								<div class="d-flex align-items-center">
+									<div class="wizard-step active" data-step="1">
+										<div class="wizard-step-number">1</div>
+										<div class="wizard-step-label">Information</div>
+									</div>
+									<div class="wizard-step-line"></div>
+									<div class="wizard-step" data-step="2">
+										<div class="wizard-step-number">2</div>
+										<div class="wizard-step-label">Services</div>
+									</div>
+								</div>
+								<div class="text-inverse text-opacity-50 small">Step <span id="currentStep" class="fw-bold text-theme">1</span> of 2</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 1: Information & Payment -->
+					<div class="wizard-content" id="wizardStep1">
+						<div class="row g-0">
+							<!-- Left Panel: Form -->
+							<div class="col-md-8">
+								<div class="card border-0 rounded-0 h-100">
+									<div class="card-body p-4">
+										<!-- Tabs -->
+										<ul class="nav nav-tabs mb-3 small">
+											<li class="nav-item">
+												<a class="nav-link active" data-bs-toggle="tab" href="#infoTab">Information</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" data-bs-toggle="tab" href="#paymentTab">Payment</a>
+											</li>
+										</ul>
+
+										<div class="tab-content">
+											<!-- Information Tab -->
+											<div class="tab-pane fade show active" id="infoTab">
+												<div class="row g-3">
+													<div class="col-md-6">
+														<label class="form-label small mb-1">ID</label>
+														<input type="text" class="form-control form-control-sm" placeholder="ID">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Client Name</label>
+														<input type="text" class="form-control form-control-sm" placeholder="Client Name">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Nationality</label>
+														<select class="form-select form-select-sm">
+															<option>Ghanaians</option>
+															<option>Nigerian</option>
+															<option>Other</option>
+														</select>
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Type Of ID</label>
+														<select class="form-select form-select-sm">
+															<option>National ID</option>
+															<option>Passport</option>
+															<option>Driving Licence</option>
+														</select>
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">National ID</label>
+														<input type="text" class="form-control form-control-sm" placeholder="National ID">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Passport / ID</label>
+														<input type="text" class="form-control form-control-sm" placeholder="Passport / ID">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Email</label>
+														<input type="email" class="form-control form-control-sm" placeholder="Email">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Contact</label>
+														<input type="text" class="form-control form-control-sm" placeholder="Contact">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Nbr Adults</label>
+														<input type="number" class="form-control form-control-sm" value="2" min="1">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Nbr Child</label>
+														<input type="number" class="form-control form-control-sm" value="0" min="0">
+													</div>
+													<div class="col-md-12">
+														<label class="form-label small mb-1">Agent</label>
+														<select class="form-select form-select-sm">
+															<option value="">Select Agent</option>
+															<option>Agent 1</option>
+															<option>Agent 2</option>
+														</select>
+													</div>
+												</div>
+											</div>
+
+											<!-- Payment Tab -->
+											<div class="tab-pane fade" id="paymentTab">
+												<div class="row g-3">
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Payment Method</label>
+														<select class="form-select form-select-sm">
+															<option>Cash</option>
+															<option>Credit Card</option>
+															<option>Bank Transfer</option>
+															<option>Check</option>
+														</select>
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Payment Terms</label>
+														<select class="form-select form-select-sm">
+															<option>Due on Receipt</option>
+															<option>Net 30</option>
+															<option>Net 60</option>
+														</select>
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Credit Limit</label>
+														<input type="number" class="form-control form-control-sm" placeholder="Credit Limit">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label small mb-1">Amount</label>
+														<input type="number" class="form-control form-control-sm" placeholder="Amount" value="178.00">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Right Panel: Blank Content Area -->
+							<div class="col-md-4">
+								<div class="card border-0 rounded-0 h-100">
+									<div class="card-header bg-inverse bg-opacity-10 d-flex align-items-center justify-content-between">
+										<span class="text-inverse text-opacity-75 small fw-bold">Additional Services</span>
+										<button type="button" class="btn btn-sm btn-outline-theme p-1" style="width: 28px; height: 28px; line-height: 1;">
+											<i class="fa fa-plus fa-xs"></i>
+										</button>
+									</div>
+									<div class="card-body bg-inverse bg-opacity-2" style="min-height: 400px;">
+										<!-- Blank content area -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 2: Services Selection -->
+					<div class="wizard-content d-none" id="wizardStep2">
+						<div class="card border-0 rounded-0">
+							<div class="card-body p-4">
+								<div class="row g-4">
+									<div class="col-md-3">
+										<div class="service-block bg-warning text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;" data-bs-toggle="modal" data-bs-target="#pickupModal">
+											<i class="fa fa-bell fa-3x mb-3"></i>
+											<div class="fw-bold">Pick Up</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="service-block bg-success text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+											<i class="fa fa-utensils fa-3x mb-3"></i>
+											<div class="fw-bold">Room Service</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="service-block bg-info text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+											<i class="fa fa-car fa-3x mb-3"></i>
+											<div class="fw-bold">Car Rental</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="service-block bg-purple text-center p-4 rounded cursor-pointer" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #b90dff !important;">
+											<i class="fa fa-bed fa-3x mb-3"></i>
+											<div class="fw-bold">Rooms</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer bg-inverse bg-opacity-5 border-top">
+					<div class="d-flex justify-content-between w-100 align-items-center">
+						<div class="text-inverse text-opacity-50 small">3/4</div>
+						<div class="d-flex gap-2">
+							<button type="button" class="btn btn-outline-default" id="wizardPrevBtn" style="display: none;"><i class="fa fa-arrow-left me-1"></i>Previous</button>
+							<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i class="fa fa-times me-1"></i>Cancel</button>
+							<button type="button" class="btn btn-outline-theme" id="wizardNextBtn"><i class="fa fa-arrow-right me-1"></i>Next</button>
+							<button type="button" class="btn btn-success d-none" id="wizardDoneBtn"><i class="fa fa-check me-1"></i>Done</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
+	<!-- Pickup Modal -->
+	<div class="modal fade" id="pickupModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content border-0">
+				<div class="card">
+					<div class="card-header bg-inverse bg-opacity-10 d-flex align-items-center justify-content-between">
+						<h5 class="modal-title mb-0"><i class="fa fa-bell me-2 text-theme"></i>Pickup</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="card-body p-4">
+						<!-- Input Fields Section -->
+						<div class="row g-3 mb-3">
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Vehicule</label>
+								<select class="form-select form-select-sm">
+									<option value="">Select Vehicle</option>
+									<option>Vehicle 1</option>
+									<option>Vehicle 2</option>
+								</select>
+							</div>
+
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Area</label>
+								<select class="form-select form-select-sm">
+									<option value="">Select Area</option>
+									<option>Area 1</option>
+									<option>Area 2</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Location</label>
+								<input type="text" class="form-control form-control-sm" placeholder="Location">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Nbr Of Person</label>
+								<input type="number" class="form-control form-control-sm" value="1" min="1">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Cost</label>
+								<input type="number" class="form-control form-control-sm" value="0" min="0" step="0.01">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Driver</label>
+								<select class="form-select form-select-sm">
+									<option value="">Select Driver</option>
+									<option>Driver 1</option>
+									<option>Driver 2</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<label class="form-label small mb-1">Date</label>
+								<input type="date" class="form-control form-control-sm" value="2025-11-11">
+							</div>
+							<div class="col-md-3">
+								<label class="form-label small mb-1">Time</label>
+								<input type="time" class="form-control form-control-sm" value="17:42">
+							</div>
+							<div class="col-md-12 d-flex gap-2 justify-content-end">
+								<button type="button" class="btn btn-success btn-sm"><i class="fa fa-plus me-1"></i>Add</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm"><i class="fa fa-trash me-1"></i>Remove</button>
+							</div>
+						</div>
+
+						<!-- Table Section -->
+						<div class="table-responsive mb-3">
+							<table class="table table-bordered table-sm mb-0">
+								<thead style="background-color: #b90dff; color: white;">
+									<tr>
+										<th class="small">Vehicle</th>
+										<th class="small">Area</th>
+										<th class="small">Pickup Point</th>
+										<th class="small">Qty</th>
+										<th class="small">Cost</th>
+										<th class="small">Date</th>
+										<th class="small">Time</th>
+										<th class="small">Driver</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- Table rows will be added dynamically -->
+									<tr>
+										<td colspan="8" class="text-center text-muted py-4">No items added yet</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!-- Bottom Date/Time Section -->
+						<div class="row g-3">
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Date</label>
+								<input type="date" class="form-control form-control-sm" value="2025-11-11">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label small mb-1">Time</label>
+								<input type="time" class="form-control form-control-sm" value="18:51">
+							</div>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse bg-opacity-5 border-top">
+						<div class="d-flex justify-content-end gap-2">
+							<button type="button" class="btn btn-outline-secondary" id="pickupCancelBtn"><i class="fa fa-times me-1"></i>Cancel</button>
+							<button type="button" class="btn btn-success"><i class="fa fa-check me-1"></i>Done</button>
+						</div>
+					</div>
+					<div class="card-arrow">
+						<div class="card-arrow-top-left"></div>
+						<div class="card-arrow-top-right"></div>
+						<div class="card-arrow-bottom-left"></div>
+						<div class="card-arrow-bottom-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		.wizard-step {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: relative;
+		}
+		.wizard-step-number {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background-color: rgba(0, 0, 0, 0.1);
+			color: rgba(0, 0, 0, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			margin-bottom: 5px;
+			transition: all 0.3s ease;
+		}
+		.wizard-step.active .wizard-step-number {
+			background-color: var(--bs-theme);
+			color: var(--bs-theme-color);
+			box-shadow: 0 2px 8px rgba(36, 157, 121, 0.3);
+		}
+		.wizard-step-label {
+			font-size: 0.875rem;
+			color: rgba(0, 0, 0, 0.5);
+			transition: all 0.3s ease;
+		}
+		.wizard-step.active .wizard-step-label {
+			color: var(--bs-theme);
+			font-weight: 600;
+		}
+		.wizard-step-line {
+			width: 100px;
+			height: 2px;
+			background-color: rgba(0, 0, 0, 0.1);
+			margin: 0 20px;
+			margin-top: -25px;
+			transition: all 0.3s ease;
+		}
+		.wizard-step.active ~ .wizard-step-line,
+		.wizard-step.active + .wizard-step-line {
+			background-color: var(--bs-theme);
+			opacity: 0.3;
+		}
+		.wizard-content {
+			min-height: 400px;
+		}
+		.cursor-pointer {
+			cursor: pointer;
+		}
+		.cursor-pointer:hover {
+			opacity: 0.8;
+			transform: scale(1.05);
+			transition: all 0.2s;
+		}
+	</style>
+
+	<script>
+		(function() {
+			let currentStep = 1;
+			const totalSteps = 2;
+
+			function updateWizard() {
+				// Update step indicators
+				document.querySelectorAll('.wizard-step').forEach((step, index) => {
+					if (index + 1 <= currentStep) {
+						step.classList.add('active');
+					} else {
+						step.classList.remove('active');
+					}
+				});
+
+				// Show/hide content
+				document.getElementById('wizardStep1').classList.toggle('d-none', currentStep !== 1);
+				document.getElementById('wizardStep2').classList.toggle('d-none', currentStep !== 2);
+
+				// Update buttons
+				document.getElementById('wizardPrevBtn').style.display = currentStep > 1 ? 'block' : 'none';
+				document.getElementById('wizardNextBtn').style.display = currentStep < totalSteps ? 'block' : 'none';
+				document.getElementById('wizardDoneBtn').classList.toggle('d-none', currentStep < totalSteps);
+
+				// Update step counter
+				document.getElementById('currentStep').textContent = currentStep;
+			}
+
+			document.getElementById('wizardNextBtn').addEventListener('click', function() {
+				if (currentStep < totalSteps) {
+					currentStep++;
+					updateWizard();
+				}
+			});
+
+			document.getElementById('wizardPrevBtn').addEventListener('click', function() {
+				if (currentStep > 1) {
+					currentStep--;
+					updateWizard();
+				}
+			});
+
+			document.getElementById('wizardDoneBtn').addEventListener('click', function() {
+				// Close modal and handle completion
+				const modal = bootstrap.Modal.getInstance(document.getElementById('confirmReservationModal'));
+				modal.hide();
+				// Add your completion logic here
+			});
+
+			// Handle Pickup modal Cancel button - return to wizard step 2
+			let returningFromPickup = false;
+			
+			document.getElementById('pickupCancelBtn').addEventListener('click', function() {
+				returningFromPickup = true;
+				// Close pickup modal
+				const pickupModal = bootstrap.Modal.getInstance(document.getElementById('pickupModal'));
+				if (pickupModal) {
+					pickupModal.hide();
+				}
+			});
+
+			// When pickup modal is closed, open wizard at step 2
+			document.getElementById('pickupModal').addEventListener('hidden.bs.modal', function() {
+				if (returningFromPickup) {
+					// Set step to 2 before opening wizard modal
+					currentStep = 2;
+					updateWizard();
+					// Open wizard modal
+					const wizardModal = new bootstrap.Modal(document.getElementById('confirmReservationModal'));
+					wizardModal.show();
+					// Reset flag after a short delay to ensure modal is opened
+					setTimeout(function() {
+						returningFromPickup = false;
+					}, 100);
+				}
+			});
+
+			// Reset wizard when modal is opened (but not when returning from pickup)
+			document.getElementById('confirmReservationModal').addEventListener('show.bs.modal', function() {
+				if (!returningFromPickup) {
+					currentStep = 1;
+					updateWizard();
+				}
+			});
+		})();
+	</script>
 <!-- END #content -->
 
 }

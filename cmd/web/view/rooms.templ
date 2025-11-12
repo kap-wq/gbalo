@@ -202,24 +202,26 @@ templ Rooms(td *render.TemplateData, i interface{}) {
 								<div class="col-md-5">
 									<div class="border rounded p-2" style="min-height: 220px;">
 										<div class="small text-opacity-75 mb-2">Available</div>
-										<div class="list-group list-group-flush">
-											<a class="list-group-item list-group-item-action">AC 2H</a>
-											<a class="list-group-item list-group-item-action">Fan</a>
-											<a class="list-group-item list-group-item-action">TV 32"</a>
-											<a class="list-group-item list-group-item-action">Bed King Size</a>
-											<a class="list-group-item list-group-item-action">Bed Keen Size</a>
-											<a class="list-group-item list-group-item-action">AC 1.5HP</a>
+										<div class="list-group list-group-flush" id="available-accessories">
+											<a class="list-group-item list-group-item-action" draggable="true">AC 2H</a>
+											<a class="list-group-item list-group-item-action" draggable="true">Fan</a>
+											<a class="list-group-item list-group-item-action" draggable="true">TV 32"</a>
+											<a class="list-group-item list-group-item-action" draggable="true">Bed King Size</a>
+											<a class="list-group-item list-group-item-action" draggable="true">Bed Keen Size</a>
+											<a class="list-group-item list-group-item-action" draggable="true">AC 1.5HP</a>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
-									<button type="button" class="btn btn-outline-secondary btn-sm mb-2"><i class="fa fa-arrow-right"></i></button>
-									<button type="button" class="btn btn-outline-secondary btn-sm"><i class="fa fa-arrow-left"></i></button>
+									<button type="button" class="btn btn-outline-secondary btn-sm mb-2" id="moveToSelected"><i class="fa fa-arrow-right"></i></button>
+									<button type="button" class="btn btn-outline-secondary btn-sm" id="moveToAvailable"><i class="fa fa-arrow-left"></i></button>
 								</div>
 								<div class="col-md-5">
-									<div class="border rounded p-2" style="min-height: 220px;">
+									<div class="border rounded p-2" id="selected-accessories" style="min-height: 220px;">
 										<div class="small text-opacity-75 mb-2">Selected</div>
-										<!-- selection target -->
+										<div class="list-group list-group-flush">
+											<!-- Selected items will be added here via drag and drop -->
+										</div>
 									</div>
 								</div>
 							</div>
@@ -248,6 +250,193 @@ templ Rooms(td *render.TemplateData, i interface{}) {
 			</div>
 		</div>
 	</div>
+
+	<style>
+		#available-accessories .list-group-item[draggable="true"],
+		#selected-accessories .list-group-item[draggable="true"] {
+			cursor: move;
+			user-select: none;
+			transition: background-color 0.2s, opacity 0.2s;
+		}
+		#available-accessories .list-group-item[draggable="true"]:hover,
+		#selected-accessories .list-group-item[draggable="true"]:hover {
+			background-color: #e9ecef;
+		}
+		#available-accessories .list-group-item[draggable="true"]:active,
+		#selected-accessories .list-group-item[draggable="true"]:active {
+			opacity: 0.5;
+		}
+		#available-accessories.drag-over,
+		#selected-accessories .list-group.drag-over {
+			background-color: #d1ecf1 !important;
+			border: 2px dashed #0c5460 !important;
+			border-radius: 4px;
+		}
+		.dragging {
+			opacity: 0.5;
+		}
+	</style>
+
+	<script>
+		(function() {
+			let draggedElement = null;
+			let draggedFromList = null;
+			let initialized = false;
+
+			function getSelectedList() {
+				const container = document.getElementById('selected-accessories');
+				return container.querySelector('.list-group');
+			}
+
+			function setupDragAndDrop() {
+				const availableList = document.getElementById('available-accessories');
+				const selectedContainer = document.getElementById('selected-accessories');
+				const selectedList = getSelectedList();
+				if (!availableList || !selectedList || !selectedContainer) return;
+
+				const draggableLists = [availableList, selectedList];
+				draggableLists.forEach(list => {
+					if (!list) return;
+
+					if (initialized) {
+						list.removeEventListener('dragstart', handleDragStartDelegate, true);
+						list.removeEventListener('dragend', handleDragEndDelegate, true);
+					}
+
+					list.addEventListener('dragstart', handleDragStartDelegate, true);
+					list.addEventListener('dragend', handleDragEndDelegate, true);
+				});
+
+				const droppableTargets = [availableList, selectedList, selectedContainer];
+				droppableTargets.forEach(target => {
+					if (!target) return;
+
+					if (initialized) {
+						target.removeEventListener('dragover', handleDragOver);
+						target.removeEventListener('drop', handleDrop);
+						target.removeEventListener('dragleave', handleDragLeave);
+					}
+
+					target.addEventListener('dragover', handleDragOver);
+					target.addEventListener('drop', handleDrop);
+					target.addEventListener('dragleave', handleDragLeave);
+				});
+
+				initialized = true;
+			}
+
+			function handleDragStartDelegate(e) {
+				if (e.target.hasAttribute('draggable') && e.target.getAttribute('draggable') === 'true') {
+					handleDragStart.call(e.target, e);
+				}
+			}
+
+			function handleDragEndDelegate(e) {
+				if (e.target.hasAttribute('draggable') && e.target.getAttribute('draggable') === 'true') {
+					handleDragEnd.call(e.target, e);
+				}
+			}
+
+			function handleDragStart(e) {
+				draggedElement = this;
+				draggedFromList = this.closest('.list-group') || this.parentElement;
+				this.classList.add('dragging');
+				e.dataTransfer.effectAllowed = 'move';
+				e.dataTransfer.setData('text/plain', this.textContent);
+			}
+
+			function handleDragEnd(e) {
+				this.classList.remove('dragging');
+				document.querySelectorAll('.drag-over').forEach(el => {
+					el.classList.remove('drag-over');
+				});
+				draggedElement = null;
+				draggedFromList = null;
+			}
+
+			function handleDragOver(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				e.dataTransfer.dropEffect = 'move';
+				this.classList.add('drag-over');
+				return false;
+			}
+
+			function handleDragLeave(e) {
+				// Only remove drag-over if we're leaving the list itself, not entering a child
+				if (!this.contains(e.relatedTarget)) {
+					this.classList.remove('drag-over');
+				}
+			}
+
+			function handleDrop(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				this.classList.remove('drag-over');
+
+				let dropTarget = this;
+
+				if (this.id === 'selected-accessories') {
+					dropTarget = getSelectedList();
+				}
+
+				if (draggedElement && draggedFromList && dropTarget && draggedFromList !== dropTarget) {
+					const text = draggedElement.textContent.trim();
+					draggedElement.remove();
+					
+					const newElement = document.createElement('a');
+					newElement.className = 'list-group-item list-group-item-action';
+					newElement.setAttribute('draggable', 'true');
+					newElement.textContent = text;
+					
+					dropTarget.appendChild(newElement);
+					// No need to reinitialize, event delegation handles new elements
+				}
+
+				return false;
+			}
+
+			// Button handlers
+			document.getElementById('moveToSelected').addEventListener('click', function() {
+				const availableList = document.getElementById('available-accessories');
+				const selected = availableList.querySelector('.list-group-item.active');
+				if (selected) {
+					const text = selected.textContent.trim();
+					selected.remove();
+					
+					const selectedList = getSelectedList();
+					const newElement = document.createElement('a');
+					newElement.className = 'list-group-item list-group-item-action';
+					newElement.setAttribute('draggable', 'true');
+					newElement.textContent = text;
+					selectedList.appendChild(newElement);
+					// Event delegation handles new elements automatically
+				}
+			});
+
+			document.getElementById('moveToAvailable').addEventListener('click', function() {
+				const selectedList = getSelectedList();
+				const selected = selectedList.querySelector('.list-group-item.active');
+				if (selected) {
+					const text = selected.textContent.trim();
+					selected.remove();
+					
+					const availableList = document.getElementById('available-accessories');
+					const newElement = document.createElement('a');
+					newElement.className = 'list-group-item list-group-item-action';
+					newElement.setAttribute('draggable', 'true');
+					newElement.textContent = text;
+					availableList.appendChild(newElement);
+					// Event delegation handles new elements automatically
+				}
+			});
+
+			// Initialize when modal is shown
+			document.getElementById('roomModal').addEventListener('shown.bs.modal', function() {
+				setTimeout(setupDragAndDrop, 100);
+			});
+		})();
+	</script>
 
 }
 }

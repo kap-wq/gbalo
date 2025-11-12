@@ -20,150 +20,231 @@ templ Fournisseur(td *render.TemplateData, i interface{}) {
 </div>
 
 <style>
-	#available-products .list-group-item[draggable="true"],
-	#selected-products .list-group-item[draggable="true"] {
+	#available-products-list .list-group-item[draggable="true"],
+	#selected-products-list .list-group-item[draggable="true"] {
 		cursor: move;
 		user-select: none;
-		transition: background-color 0.2s;
+		transition: background-color 0.2s, opacity 0.2s;
 	}
-	#available-products .list-group-item[draggable="true"]:hover,
-	#selected-products .list-group-item[draggable="true"]:hover {
+	#available-products-list .list-group-item[draggable="true"]:hover,
+	#selected-products-list .list-group-item[draggable="true"]:hover {
 		background-color: #e9ecef;
 	}
-	#available-products .list-group-item[draggable="true"]:active,
-	#selected-products .list-group-item[draggable="true"]:active {
+	#available-products-list .list-group-item[draggable="true"]:active,
+	#selected-products-list .list-group-item[draggable="true"]:active {
 		opacity: 0.5;
 	}
-	.drag-over {
+	#available-products.drag-over,
+	#available-products-list.drag-over,
+	#selected-products.drag-over,
+	#selected-products-list.drag-over {
 		background-color: #d1ecf1 !important;
 		border: 2px dashed #0c5460 !important;
+		border-radius: 4px;
+	}
+	.dragging {
+		opacity: 0.5;
 	}
 </style>
 
 <script>
-// Drag and Drop functionality for Products Supplied
-function allowDrop(ev) {
-	ev.preventDefault();
-	ev.currentTarget.classList.add('drag-over');
-}
+	(function() {
+		let draggedElement = null;
+		let draggedFromList = null;
+		let initialized = false;
 
-function drag(ev) {
-	ev.dataTransfer.setData("text/html", ev.target.outerHTML);
-	ev.dataTransfer.setData("text/plain", ev.target.getAttribute('data-product'));
-	ev.dataTransfer.effectAllowed = "move";
-	ev.target.style.opacity = "0.5";
-}
-
-function drop(ev) {
-	ev.preventDefault();
-	ev.currentTarget.classList.remove('drag-over');
-	
-	var data = ev.dataTransfer.getData("text/html");
-	var productId = ev.dataTransfer.getData("text/plain");
-	var target = ev.currentTarget;
-	var draggedElement = document.querySelector('[data-product="' + productId + '"]');
-	
-	if (!draggedElement) return;
-	
-	var sourceContainer = draggedElement.closest('#available-products, #selected-products');
-	
-	// Don't move if dropped in same container
-	if (sourceContainer && sourceContainer.id === target.id) {
-		draggedElement.style.opacity = "1";
-		return;
-	}
-	
-	// Check if product already exists in target
-	var existing = target.querySelector('[data-product="' + productId + '"]');
-	if (existing && existing !== draggedElement) {
-		draggedElement.style.opacity = "1";
-		return;
-	}
-	
-	// Move element to target
-	if (sourceContainer && sourceContainer.id !== target.id) {
-		// Clone and add to target
-		var clone = draggedElement.cloneNode(true);
-		clone.style.opacity = "1";
-		target.appendChild(clone);
-		
-		// Remove from source
-		draggedElement.remove();
-	} else {
-		// Just reset opacity
-		draggedElement.style.opacity = "1";
-	}
-	
-	// Reset opacity of all draggable elements
-	document.querySelectorAll('[draggable="true"]').forEach(el => {
-		el.style.opacity = "1";
-	});
-}
-
-// Move selected items between lists
-function moveToSelected() {
-	var available = document.getElementById('available-products');
-	var selected = document.getElementById('selected-products');
-	var items = available.querySelectorAll('.list-group-item[draggable="true"]:not(.bg-light)');
-	
-	items.forEach(item => {
-		var productId = item.getAttribute('data-product');
-		if (!selected.querySelector('[data-product="' + productId + '"]')) {
-			var clone = item.cloneNode(true);
-			clone.style.opacity = "1";
-			selected.appendChild(clone);
+		function getAvailableList() {
+			return document.getElementById('available-products-list');
 		}
-	});
-}
 
-function moveToAvailable() {
-	var selected = document.getElementById('selected-products');
-	var items = selected.querySelectorAll('.list-group-item[draggable="true"]');
-	
-	items.forEach(item => {
-		item.remove();
-	});
-}
+		function getSelectedList() {
+			return document.getElementById('selected-products-list');
+		}
 
-// Add visual feedback on drag
-document.addEventListener('DOMContentLoaded', function() {
-	var containers = document.querySelectorAll('#available-products, #selected-products');
-	containers.forEach(container => {
-		container.addEventListener('dragenter', function(e) {
-			e.preventDefault();
-			if (e.target === this || this.contains(e.target)) {
-				this.classList.add('drag-over');
+		function getAvailableContainer() {
+			return document.getElementById('available-products');
+		}
+
+		function getSelectedContainer() {
+			return document.getElementById('selected-products');
+		}
+
+		function cloneItem(source) {
+			const clone = document.createElement('a');
+			clone.className = 'list-group-item list-group-item-action';
+			clone.setAttribute('draggable', 'true');
+			clone.innerHTML = source.innerHTML;
+			if (source.dataset) {
+				Object.keys(source.dataset).forEach(key => {
+					clone.dataset[key] = source.dataset[key];
+				});
 			}
-		});
-		
-		container.addEventListener('dragover', function(e) {
-			e.preventDefault();
-			e.dataTransfer.dropEffect = "move";
-		});
-		
-		container.addEventListener('dragleave', function(e) {
-			e.preventDefault();
-			if (!this.contains(e.relatedTarget)) {
+			return clone;
+		}
+
+		function clearActive(list) {
+			if (!list) return;
+			list.querySelectorAll('.list-group-item.active').forEach(item => item.classList.remove('active'));
+		}
+
+		function handleItemClick(event) {
+			const item = event.target.closest('.list-group-item[draggable="true"]');
+			if (!item) return;
+			const list = item.closest('.list-group');
+			if (!list) return;
+			const wasActive = item.classList.contains('active');
+			clearActive(list);
+			if (!wasActive) {
+				item.classList.add('active');
+			}
+		}
+
+		function setupDragAndDrop() {
+			const availableList = getAvailableList();
+			const selectedList = getSelectedList();
+			const availableContainer = getAvailableContainer();
+			const selectedContainer = getSelectedContainer();
+
+			if (!availableList || !selectedList || !availableContainer || !selectedContainer) {
+				return;
+			}
+
+			const lists = [availableList, selectedList];
+			const dropTargets = [availableList, selectedList, availableContainer, selectedContainer];
+
+			lists.forEach(list => {
+				if (initialized) {
+					list.removeEventListener('dragstart', handleDragStartDelegate, true);
+					list.removeEventListener('dragend', handleDragEndDelegate, true);
+					list.removeEventListener('click', handleItemClick);
+				}
+				list.addEventListener('dragstart', handleDragStartDelegate, true);
+				list.addEventListener('dragend', handleDragEndDelegate, true);
+				list.addEventListener('click', handleItemClick);
+			});
+
+			dropTargets.forEach(target => {
+				if (initialized) {
+					target.removeEventListener('dragover', handleDragOver);
+					target.removeEventListener('drop', handleDrop);
+					target.removeEventListener('dragleave', handleDragLeave);
+				}
+				target.addEventListener('dragover', handleDragOver);
+				target.addEventListener('drop', handleDrop);
+				target.addEventListener('dragleave', handleDragLeave);
+			});
+
+			if (!initialized) {
+				const moveToSelectedBtn = document.getElementById('moveToSelected');
+				const moveToAvailableBtn = document.getElementById('moveToAvailable');
+
+				if (moveToSelectedBtn) {
+					moveToSelectedBtn.addEventListener('click', () => {
+						const available = getAvailableList();
+						const selectedItem = available ? available.querySelector('.list-group-item.active[draggable="true"]') : null;
+						if (!selectedItem) return;
+
+						const clone = cloneItem(selectedItem);
+						selectedItem.remove();
+
+						const selectedList = getSelectedList();
+						clearActive(selectedList);
+						selectedList.appendChild(clone);
+					});
+				}
+
+				if (moveToAvailableBtn) {
+					moveToAvailableBtn.addEventListener('click', () => {
+						const selected = getSelectedList();
+						const selectedItem = selected ? selected.querySelector('.list-group-item.active[draggable="true"]') : null;
+						if (!selectedItem) return;
+
+						const clone = cloneItem(selectedItem);
+						selectedItem.remove();
+
+						const availableList = getAvailableList();
+						clearActive(availableList);
+						availableList.appendChild(clone);
+					});
+				}
+			}
+
+			initialized = true;
+		}
+
+		function handleDragStartDelegate(event) {
+			const item = event.target.closest('.list-group-item[draggable="true"]');
+			if (!item) return;
+			handleDragStart.call(item, event);
+		}
+
+		function handleDragEndDelegate(event) {
+			const item = event.target.closest('.list-group-item[draggable="true"]');
+			if (!item) return;
+			handleDragEnd.call(item, event);
+		}
+
+		function handleDragStart(event) {
+			draggedElement = this;
+			draggedFromList = this.closest('.list-group');
+			this.classList.add('dragging');
+			clearActive(draggedFromList);
+			this.classList.add('active');
+			if (event.dataTransfer) {
+				event.dataTransfer.effectAllowed = 'move';
+				event.dataTransfer.setData('text/plain', this.textContent);
+			}
+		}
+
+		function handleDragEnd() {
+			this.classList.remove('dragging');
+			document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+			draggedElement = null;
+			draggedFromList = null;
+		}
+
+		function resolveDropTarget(target) {
+			if (!target) return null;
+			if (target.classList && target.classList.contains('list-group')) {
+				return target;
+			}
+			if (target.id === 'available-products' || target.id === 'selected-products') {
+				return target.querySelector('.list-group');
+			}
+			return target.closest('.list-group');
+		}
+
+		function handleDragOver(event) {
+			event.preventDefault();
+			if (event.dataTransfer) {
+				event.dataTransfer.dropEffect = 'move';
+			}
+			this.classList.add('drag-over');
+		}
+
+		function handleDragLeave(event) {
+			if (!this.contains(event.relatedTarget)) {
 				this.classList.remove('drag-over');
 			}
-		});
-		
-		container.addEventListener('drop', function(e) {
-			e.preventDefault();
-			this.classList.remove('drag-over');
-		});
-	});
-	
-	// Reset opacity on drag end
-	document.addEventListener('dragend', function(e) {
-		if (e.target.hasAttribute('draggable')) {
-			e.target.style.opacity = "1";
 		}
-		document.querySelectorAll('#available-products, #selected-products').forEach(container => {
-			container.classList.remove('drag-over');
-		});
-	});
-});
+
+		function handleDrop(event) {
+			event.preventDefault();
+			this.classList.remove('drag-over');
+
+			const dropTarget = resolveDropTarget(this);
+			if (!dropTarget || !draggedElement || !draggedFromList || draggedFromList === dropTarget) {
+				return;
+			}
+
+			const clone = cloneItem(draggedElement);
+			draggedElement.remove();
+			clearActive(dropTarget);
+			dropTarget.appendChild(clone);
+		}
+
+		document.addEventListener('DOMContentLoaded', setupDragAndDrop);
+	})();
 </script>
 	<div class="mb-sm-4 mb-3 d-sm-flex small text-inverse text-opacity-75">
 		<a href="#" class="d-inline-flex align-items-center text-decoration-none"><i class="fa fa-download fa-fw me-1 text-theme"></i> Export</a>
@@ -592,118 +673,109 @@ document.addEventListener('DOMContentLoaded', function() {
 							<div class="row g-3">
 								<div class="col-md-5">
 									<label class="form-label fw-bold mb-2">Available Products</label>
-									<div class="border rounded p-3" id="available-products" style="min-height: 350px; max-height: 350px; overflow-y: auto;" ondrop="drop(event)" ondragover="allowDrop(event)">
-										<div class="list-group">
-											<div class="list-group-item p-2 fw-bold small bg-light">Category</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT001" data-category="Packages">
+									<div class="border rounded p-3" id="available-products" style="min-height: 350px; max-height: 350px; overflow-y: auto;">
+										<div class="list-group list-group-flush" id="available-products-list">
+											<div class="list-group-item p-2 fw-bold small bg-light text-uppercase" draggable="false">Category</div>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT001" data-category="Packages">
 												<small><strong>Packages</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT002" data-category="Utilities">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT002" data-category="Utilities">
 												<small><strong>Utilities</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT003" data-category="Market Expenses">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT003" data-category="Market Expenses">
 												<small><strong>Market Expenses</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT004" data-category="Proteins">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT004" data-category="Proteins">
 												<small><strong>Proteins</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT005" data-category="Fuel">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT005" data-category="Fuel">
 												<small><strong>Fuel</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT006" data-category="Other and Miscellaneous Items">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT006" data-category="Other and Miscellaneous Items">
 												<small><strong>Other and Miscellaneous Items</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT007" data-category="Maintenance">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT007" data-category="Maintenance">
 												<small><strong>Maintenance</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT008" data-category="Marketing">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT008" data-category="Marketing">
 												<small><strong>Marketing</strong></small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT009" data-category="Drinks and Alcohol">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT009" data-category="Drinks and Alcohol">
 												<small><strong>Drinks and Alcohol</strong></small>
-                  </div>
-                </div>
-										<div class="mt-3">
-											<div class="list-group-item p-2 fw-bold small bg-light">Product</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="PR001" data-name="Product 1">
+											</a>
+											<div class="list-group-item p-2 fw-bold small bg-light text-uppercase mt-3" draggable="false">Products</div>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="PR001" data-name="Product 1">
 												<small>PR001 - Product 1</small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="PR002" data-name="Product 2">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="PR002" data-name="Product 2">
 												<small>PR002 - Product 2</small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="PR025" data-name="Baked Beans">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="PR025" data-name="Baked Beans">
 												<small>PR025 - Baked Beans</small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="PR026" data-name="Sweet Corn">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="PR026" data-name="Sweet Corn">
 												<small>PR026 - Sweet Corn</small>
-											</div>
-                  </div>
-                </div>
-              </div>
+											</a>
+										</div>
+									</div>
+								</div>
 								<div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
-									<button type="button" class="btn btn-success btn-sm mb-2" onclick="moveToSelected()" title="Add Selected">
+									<button type="button" class="btn btn-success btn-sm mb-2" id="moveToSelected" title="Add Selected">
 										<i class="fa fa-arrow-right"></i>
 									</button>
-									<button type="button" class="btn btn-danger btn-sm" onclick="moveToAvailable()" title="Remove Selected">
+									<button type="button" class="btn btn-danger btn-sm" id="moveToAvailable" title="Remove Selected">
 										<i class="fa fa-arrow-left"></i>
 									</button>
 								</div>
 								<div class="col-md-5">
 									<label class="form-label fw-bold mb-2">Selected Products</label>
-									<div class="border rounded p-3" id="selected-products" style="min-height: 350px; max-height: 350px; overflow-y: auto;" ondrop="drop(event)" ondragover="allowDrop(event)">
-										<div class="list-group">
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT001" data-name="Cerials">
+									<div class="border rounded p-3" id="selected-products" style="min-height: 350px; max-height: 350px; overflow-y: auto;">
+										<div class="list-group list-group-flush" id="selected-products-list">
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT001" data-name="Cerials">
 												<small>CT001 - Cerials</small>
-											</div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT003" data-name="Drinks">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT003" data-name="Drinks">
 												<small>CT003 - Drinks</small>
-                </div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT006" data-name="Fruits">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT006" data-name="Fruits">
 												<small>CT006 - Fruits</small>
-                </div>
-											<div class="list-group-item p-2" draggable="true" ondragstart="drag(event)" data-product="CT007" data-name="Toiletries">
+											</a>
+											<a class="list-group-item list-group-item-action p-2" draggable="true" data-product="CT007" data-name="Toiletries">
 												<small>CT007 - Toiletries</small>
-                </div>
-                </div>
-              </div>
-            </div>
-				<div class="card-arrow">
-					<div class="card-arrow-top-left"></div>
-					<div class="card-arrow-top-right"></div>
-					<div class="card-arrow-bottom-left"></div>
-					<div class="card-arrow-bottom-right"></div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-          </div>
-        </div>
-      </div>
-
-					<!-- Action Buttons -->
-					<div class="d-flex justify-content-between mt-3 pt-3 border-top">
-						<button type="button" class="btn btn-outline-secondary btn-sm">
-							<i class="fa fa-times me-1"></i>Cancel
+				<!-- Action Buttons -->
+				<div class="d-flex justify-content-between mt-3 pt-3 border-top">
+					<button type="button" class="btn btn-outline-secondary btn-sm">
+						<i class="fa fa-times me-1"></i>Cancel
+					</button>
+					<div>
+						<button type="button" class="btn btn-success btn-sm me-2">
+							<i class="fa fa-plus me-1"></i>Add
 						</button>
-						<div>
-							<button type="button" class="btn btn-success btn-sm me-2">
-								<i class="fa fa-plus me-1"></i>Add
-							</button>
-							<button type="button" class="btn btn-primary btn-sm me-2">
-								<i class="fa fa-edit me-1"></i>Modify
-							</button>
-							<button type="button" class="btn btn-danger btn-sm">
-								<i class="fa fa-trash me-1"></i>Delete
-							</button>
-          </div>
-        </div>
-      </div>
-      <div class="card-arrow">
-        <div class="card-arrow-top-left"></div>
-        <div class="card-arrow-top-right"></div>
-        <div class="card-arrow-bottom-left"></div>
-        <div class="card-arrow-bottom-right"></div>
+						<button type="button" class="btn btn-primary btn-sm me-2">
+							<i class="fa fa-edit me-1"></i>Modify
+						</button>
+						<button type="button" class="btn btn-danger btn-sm">
+							<i class="fa fa-trash me-1"></i>Delete
+						</button>
+					</div>
 				</div>
-      </div>
-    </div>
-  </div>
+			</div>
+			<div class="card-arrow">
+				<div class="card-arrow-top-left"></div>
+				<div class="card-arrow-top-right"></div>
+				<div class="card-arrow-bottom-left"></div>
+				<div class="card-arrow-bottom-right"></div>
+			</div>
+		</div>
+	</div>
 </div>
 }
 }
